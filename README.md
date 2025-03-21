@@ -15,4 +15,4 @@
 - ### Make any changes in the files and restart the server.
 
 # How to Run the Backend Test?
-- ### Open console in the project directory and run 
+- ### Open console in the project directory and run ``npm test``
