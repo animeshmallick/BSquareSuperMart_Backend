@@ -4,7 +4,11 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const logger = require('./utils/logger');
+const morgan = require('morgan');
+const fs = require('fs');
+
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
 const categories = require('./routes/categories');
 
@@ -14,12 +18,14 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(logger('dev'));
+app.use(morgan('combined', { stream: accessLogStream }));
+app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+logger.info('Server Started at port : ' + process.env.PORT || '3000')
 app.use('/categories', categories);
 
 // catch 404 and forward to error handler
