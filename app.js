@@ -11,6 +11,7 @@ const fs = require('fs');
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
 const categories = require('./routes/categories');
+const category=require('./routes/category');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 logger.info('Server Started at port : ' + process.env.PORT || '3000')
 app.use('/categories', categories);
+app.use('/category', category);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
