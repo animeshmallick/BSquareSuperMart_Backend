@@ -12,7 +12,7 @@ const fs = require('fs');
 const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
 
 const categories = require('./routes/categories');
-const category=require('./routes/category');
+const category=require('./routes/productsFromCategory');
 
 const app = express();
 
