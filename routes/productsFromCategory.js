@@ -1,7 +1,6 @@
 const database = require('../internal/database.js')
-const parseCategories = require('../helpers/categoryHelper.js');
+const parseProductsPerCategory = require('../helpers/productsFromCategoryHelper.js');
 const Sql = require('../internal/sql.js');
-const get_products_from_category_query= require('../internal/sql.js');
 const express = require('express');
 
 const router = express.Router();
@@ -15,7 +14,7 @@ router.get('/:category', function (req, res, next){
             res.status(500).json({error: err.message});
             return;
         }
-        res.status(200).json(result);
+        res.status(200).json(parseProductsPerCategory(result));
     });
     db.end();
 });
