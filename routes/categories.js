@@ -1,5 +1,5 @@
 const database = require('../internal/database.js')
-const parseCategories = require('../helpers/categoriesHelper.js');
+const CategoryHelper = require('../helpers/categoriesHelper.js');
 const Sql = require('../internal/sql.js');
 const express = require('express');
 
@@ -12,7 +12,7 @@ router.get('/', function (req, res, next){
             res.status(500).json({error: err.message});
             return;
         }
-        res.status(200).json(parseCategories(result));
+        res.status(200).json(CategoryHelper.parseCategoryResult(result));
     });
     db.end();
 });
