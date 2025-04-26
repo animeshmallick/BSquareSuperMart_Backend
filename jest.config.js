@@ -1,11 +1,16 @@
 module.exports = {
-    testEnvironment: "node",
+    verbose: true,
+    collectCoverage: true,
+    coverageDirectory: "coverage",
+    coverageReporters: ["html", "text-summary"],
     reporters: [
         "default",
-        ["jest-html-reporter", {
-            "pageTitle": "Backend Test Report",
-            "outputPath": "./test-report.html",
-            "includeFailureMsg": true
+        ["jest-stare", {
+            resultDir: "test_results",
+            reportTitle: "Backend Test Report",
+            coverageLink: "../coverage/lcov-report/index.html", // this links coverage
+            additionalResultsProcessors: [],
+            includeConsoleOutput: true
         }]
     ]
 };
