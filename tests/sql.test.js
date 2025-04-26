@@ -38,5 +38,4 @@ describe('Sql Class', () => {
             expect(() => sql.get_all_products_from_ids([1, 'a', 3])).toThrow('Invalid id in list');
         });
     });
-
 });
