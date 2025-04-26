@@ -7,18 +7,19 @@ const path = require("path");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs/access.log'), { flags: 'a' });
 
 const categories = require('./routes/categories');
 const cart = require('./routes/cart.js');
-const category=require('./routes/productsFromCategory');
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' });
+const category= require('./routes/productsFromCategory');
+const ping = require('./routes/ping');
 
 const app = express();
 setup_router();
 
-logger.info('Server Started at port : ' + process.env.PORT || '3000')
-
 // Add Backend Routers
+app.use('/', ping);
+app.use('/ping', ping);
 app.use('/categories', categories);
 app.use('/category', category);
 app.use('/cart', cart);

@@ -16,4 +16,7 @@ router.get('/', function (req, res, next){
     });
     db.end();
 });
+router.post('/', function (req, res, next){
+    res.status(400).json({'error': 'Invalid Router'})
+});
 module.exports = router;
