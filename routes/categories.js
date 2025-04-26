@@ -1,5 +1,5 @@
 const database = require('../internal/database.js')
-const parseCategories = require('../helpers/categoriesHelper.js');
+const CategoryHelper = require('../helpers/categoryHelper.js');
 const Sql = require('../internal/sql.js');
 const express = require('express');
 
