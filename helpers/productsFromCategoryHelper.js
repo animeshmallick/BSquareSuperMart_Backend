@@ -4,11 +4,12 @@ module.exports = function parseProductsPerCategoryResults(result){
         const subcategory = product.subcategory;
         // Only pick specific fields
         const cleanedProduct = {
-            name: product.name,
-            size: product.size,
-            price: product.selling_price,
-            oldPrice: product.mrp,
-            imgSrc: product.image_url
+            productId: product.id,
+            productName: product.name,
+            productSize: product.size,
+            productPrice: product.selling_price,
+            productMrp: product.mrp,
+            productImg: product.image_url
         };
 
         if(!products[subcategory]){
