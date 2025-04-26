@@ -1,5 +1,5 @@
 class CategoryHelper {
-    parseCategoryResults(result) {
+    parseCategoryResult(result) {
         return result.reduce((acc, item) => {
             if (!acc[item.category_header]) {
                 acc[item.category_header] = [];

@@ -1,15 +1,7 @@
 class CartHelper {
-    parseCartResult(result) {
-        return result.reduce((acc, item) => {
-            if (!acc[item.category_header]) {
-                acc[item.category_header] = [];
-            }
-            acc[item.category_header].push({
-                name: item.category_name,
-                image: item.category_image
-            });
-            return acc;
-        }, {});
+    parseCartResult(result, product_map) {
+        result.forEach(product => product['quantity'] = product_map[product.id])
+        return result;
     }
 
     getProductMap(cart){
