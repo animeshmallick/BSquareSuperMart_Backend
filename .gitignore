@@ -25,3 +25,4 @@ dist/
 build/
 coverage/
 test_results/
+.nyc_output
