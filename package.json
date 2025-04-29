@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nyc jest && node ./bin/www",
-    "test": "nyc jest --verbose"
+    "start": "npm test && node ./bin/www",
+    "test": "jest --verbose"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",

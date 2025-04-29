@@ -7,8 +7,7 @@ const path = require("path");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
-
-const app = express();
+const accessLogStream = fs.createWriteStream(path.join(__dirname, 'logs/access.log'), { flags: 'a' });
 
 // Ensure logs directory exists
 const logDirectory = path.join(__dirname, 'logs');
