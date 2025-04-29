@@ -18,6 +18,9 @@ router.get('/:category', function (req, res, next){
     });
     db.end();
 });
+router.get('/', function (req, res, next){
+    res.status(400).json({'error': 'Invalid Category'});
+});
 router.post('/', function (req, res, next){
     res.status(400).json({'error': 'Invalid Router'})
 });
