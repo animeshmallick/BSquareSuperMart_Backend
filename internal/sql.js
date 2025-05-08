@@ -27,6 +27,31 @@ class Sql {
         console.log("Preparing SQL Query : " + query);
         return query;
     }
+
+    get_product_from_productId(productId) {
+        const query = `SELECT * FROM products WHERE id = '${productId}';`;
+        console.log("Preparing SQL Query : " + query);
+        return query;
+    }
+    get_all_products(){
+        const query = `SELECT * FROM products;`;
+        console.log("Preparing SQL Query : " + query);
+        return query;
+    }
+    check_product_in_database(product) {
+        const query = `SELECT COUNT(*) as 'length' FROM products where name = '${product.name}' and 
+                                    category = '${product.category}' and subcategory = '${product.subcategory}' and 
+                                    brand = '${product.brand}' and size = '${product.size}'`;
+        console.log("Preparing SQL Query : " + query);
+        return query;
+    }
+    add_new_product_to_db(product) {
+      const query = `INSERT INTO products (name,category,subcategory,brand,sku,barcode,mrp,selling_price,stock,size,description,image_url,expiration_date,tags)
+                            VALUES ('${product.name}','${product.category}','${product.subcategory}','${product.brand}','${product.sku}','${product.barcode}','${product.mrp}',
+                                    '${product.selling_price}','${product.stock}','${product.size}','${product.description}','${product.image_url}','${product.expiration_date}','${product.tags}')`;
+      console.log("Preparing SQL Query : " + query);
+      return query;
+    }
 }
 
 module.exports = new Sql();

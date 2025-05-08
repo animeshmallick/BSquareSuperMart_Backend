@@ -5,7 +5,6 @@ const express = require('express');
 
 const router = express.Router();
 
-
 router.get('/:category', function (req, res, next){
     const category=req.params.category;
     const db= database();

@@ -35,7 +35,10 @@ app.use('/', require('./routes/ping'));
 app.use('/ping', require('./routes/ping'));
 app.use('/categories', require('./routes/categories'));
 app.use('/category', require('./routes/productsFromCategory'));
+app.use('/product', require('./routes/product'));
 app.use('/cart', require('./routes/cart'));
+app.use('/similarProducts', require('./routes/similarProducts'));
+app.use('/addNewProductToDatabase', require('./routes/addNewProductToDatabase'));
 
 // 404 Handler
 app.use((req, res, next) => {
