@@ -5,7 +5,6 @@ const express = require('express');
 
 const router = express.Router();
 
-
 router.get('/:category', function (req, res, next){
     const category=req.params.category;
     const db= database();
@@ -17,6 +16,9 @@ router.get('/:category', function (req, res, next){
         res.status(200).json(parseProductsPerCategory(result));
     });
     db.end();
+});
+router.get('/', function (req, res, next){
+    res.status(400).json({'error': 'Invalid Category'});
 });
 router.post('/', function (req, res, next){
     res.status(400).json({'error': 'Invalid Router'})
