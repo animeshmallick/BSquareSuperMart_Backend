@@ -3,6 +3,8 @@ const Sql = require("../internal/sql.js");
 class TestHelper {
     mock_data_key = Object.freeze({
         CATEGORIES: {name: 'categories.json', sql_query: Sql.get_all_categories()},
+        CART_WITH_PRODUCTS_1: {name: 'cart_with_1_products.json', sql_query: Sql.get_all_products_from_ids([1])},
+        CART_WITH_PRODUCTS_2: {name: 'cart_with_2_products.json', sql_query: Sql.get_all_products_from_ids([1,2])},
         PING: {name: 'ping.json'}
     });
     get_mock_data(mock_date_file_name){
