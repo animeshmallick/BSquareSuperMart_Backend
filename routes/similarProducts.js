@@ -17,7 +17,14 @@ router.get('/:productId', function (req, res, next) {
         res.status(200).json(SimilarProductsHelper.parseSimilarProducts(SimilarProductsHelper.getSimilarProducts(result, productId)));
     });
     db.end();
+});
 
+router.get('/', function (req, res, next){
+    res.status(400).json({'error': 'Invalid Category'});
+});
+
+router.post('/', function (req, res, next){
+    res.status(400).json({'error': 'Invalid Router'})
 });
 
 module.exports = router;

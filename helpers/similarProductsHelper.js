@@ -30,7 +30,7 @@ class SimilarProductsHelper {
             .sort((a, b) => a.score - b.score) // Lower score = more similar
             .map(r => r.item);
 
-        return similarProducts;
+        return (similarProducts.slice(0,4));
     }
 }
 module.exports = new SimilarProductsHelper();
