@@ -44,4 +44,7 @@ router.post('/', upload.array('images', 10), async function (req, res, next) {
         }
     })
 });
+router.get("/", function (req, res, next){
+    res.status(400).json("GET Call Not Handled");
+});
 module.exports = router;
