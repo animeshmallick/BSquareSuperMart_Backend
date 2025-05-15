@@ -27,17 +27,17 @@ jobs:
 
       - name: Set up SSH
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+          sudo mkdir -p ~/.ssh
+          sudo echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          sudo chmod 600 ~/.ssh/id_rsa
+          sudo ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2 and restart PM2
         if: success()  # only run if tests pass
         run: |
-          ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          sudo ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
             cd ~/your-repo
-            git pull origin main
-            npm install
-            pm2 restart backend || pm2 start bin/www --name backend
+            sudo git pull origin mainline
+            sudo npm install
+            sudo pm2 restart backend || pm2 start bin/www --name backend
           EOF
