@@ -23,21 +23,23 @@ jobs:
 
       - name: Run Jest tests
         run: npm test
-        # or `npm run test` if your package.json script is called 'test'
 
       - name: Set up SSH
         run: |
-          sudo mkdir -p ~/.ssh
-          sudo echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-          sudo chmod 600 ~/.ssh/id_rsa
-          sudo ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_PRIVATE_KEY }}" | tr -d '\r' > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
 
       - name: Deploy to EC2 and restart PM2
-        if: success()  # only run if tests pass
+        if: success()
+        env:
+          HOST: ${{ secrets.EC2_HOST }}
+          USER: ${{ secrets.EC2_USER }}
         run: |
-          sudo ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} << 'EOF'
+          ssh $USER@$HOST << 'EOF'
             cd ~/your-repo
-            sudo git pull origin mainline
-            sudo npm install
-            sudo pm2 restart backend || pm2 start bin/www --name backend
+            git pull origin mainline
+            npm install
+            pm2 restart backend || pm2 start bin/www --name backend --force
           EOF
