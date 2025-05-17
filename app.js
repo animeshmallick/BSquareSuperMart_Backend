@@ -39,6 +39,7 @@ app.use('/product', require('./routes/product'));
 app.use('/cart', require('./routes/cart'));
 app.use('/similarProducts', require('./routes/similarProducts'));
 app.use('/addNewProductToDatabase', require('./routes/addNewProductToDatabase'));
+app.use('/getAuthToken', require('./routes/getAuthToken'));
 
 // 404 Handler
 app.use((req, res, next) => {

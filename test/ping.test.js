@@ -10,8 +10,8 @@ describe('Ping Router', () => {
     it('GET / Call to Ping Router', async () => {
         const res = await request(app).get('/');
 
-        expect(res.statusCode).toEqual(200);
-        expect(res.body).toEqual(testHelper.get_mock_data(testHelper.mock_data_key.PING.name));
+        expect(res.statusCode).toEqual(403);
+        expect(res.body).toEqual(testHelper.get_mock_data(testHelper.mock_data_key.UNAUTHORIZED.name));
     });
 
     it('POST / Call to Ping Router', async () => {
