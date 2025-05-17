@@ -40,7 +40,7 @@ jobs:
           ssh $USER@$HOST << 'EOF'
             cd ~/BSquareSuperMart_Backend
             git config --global --add safe.directory /home/***/BSquareSuperMart_Backend
-            git pull origin mainline
-            npm install
+            sudo git pull origin mainline
+            sudo npm install
             pm2 restart backend || pm2 start bin/www --name backend --force
           EOF
