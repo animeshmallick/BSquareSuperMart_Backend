@@ -20,6 +20,7 @@ class SimilarProductsHelper {
             includeScore: true,
             keys: ['name', 'description', 'tags', 'category', 'subcategory', 'brand'],
         };
+
         const referenceProduct = result.find(item => item.id === productId);
 
             const fuse = new Fuse(result, options);

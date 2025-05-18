@@ -10,7 +10,6 @@ const router = express.Router();
 //ToDo: differentiate the router for cases '/product/' and '/product/3'
 
 router.get('/:productId', function (req, res, next){
-    logger.info('GET /:productId');
     const productId = req.params.productId;
     const db= database();
         db.query(Sql.get_product_from_productId(productId), (err, result) => {
