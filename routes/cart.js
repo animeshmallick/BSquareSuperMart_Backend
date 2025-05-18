@@ -10,7 +10,10 @@ router.post('/', function (req, res, next){
         const product_map = cartHelper.getProductMap(req.body);
         const db = database();
         db.query(Sql.get_all_products_from_ids(Object.keys(product_map)), (err, result) => {
-            res.status(200).json(cartHelper.parseCartResult(result, product_map));
+            const cart_products = cartHelper.parseCartProducts(result, product_map);
+            const cart_bill = cartHelper.getBill(cart_products);
+            const cart_response = {products: cart_products, bill: cart_bill};
+            res.status(200).json(cart_response);
         });
         db.end();
     }catch (err) {res.status(err.statusCode).json({error: err.message})}
