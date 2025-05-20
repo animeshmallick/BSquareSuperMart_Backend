@@ -41,6 +41,7 @@ app.use('/similarProducts', require('./routes/similarProducts'));
 app.use('/addNewProductToDatabase', require('./routes/addNewProductToDatabase'));
 app.use('/getAuthToken', require('./routes/getAuthToken'));
 app.use('/login', require('./routes/login'));
+app.use('/isvalidToken', require('./routes/isValidToken'));
 // 404 Handler
 app.use((req, res, next) => {
     res.status(404).json({success: false, message: "Endpoint Not Found",});
