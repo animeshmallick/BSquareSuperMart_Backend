@@ -33,11 +33,13 @@ class Sql {
         console.log("Preparing SQL Query : " + query);
         return query;
     }
+
     get_all_products(){
         const query = `SELECT * FROM products;`;
         console.log("Preparing SQL Query : " + query);
         return query;
     }
+
     check_product_in_database(product) {
         const query = `SELECT COUNT(*) as 'length' FROM products where name = '${product.name}' and 
                                     category = '${product.category}' and subcategory = '${product.subcategory}' and 
@@ -45,6 +47,7 @@ class Sql {
         console.log("Preparing SQL Query : " + query);
         return query;
     }
+
     add_new_product_to_db(product) {
       const query = `INSERT INTO products (name,category,subcategory,brand,sku,barcode,mrp,selling_price,stock,size,description,image_url,expiration_date,tags)
                             VALUES ('${product.name}','${product.category}','${product.subcategory}','${product.brand}','${product.sku}','${product.barcode}','${product.mrp}',
@@ -52,11 +55,7 @@ class Sql {
       console.log("Preparing SQL Query : " + query);
       return query;
     }
-    get_user_address(userId){
-        const query =`SELECT * FROM users WHERE userid = '${userId}';`;
-        console.log("Preparing SQL Query : " + query);
-        return query;
-    }
+
     verify_login_details(phonenumber,password){
         const query =`SELECT * FROM users WHERE phonenumber='${phonenumber}' AND password='${password}'`;
         console.log("Preparing SQL Query : " + query);

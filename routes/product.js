@@ -1,5 +1,5 @@
 const database = require('../internal/database.js')
-const parseProduct = require('../helpers/productHelper.js');
+const productHelper = require('../helpers/productHelper.js');
 const Sql = require('../internal/sql.js');
 const express = require('express');
 const logger = require('../utils/logger.js');
@@ -18,7 +18,12 @@ router.get('/:productId', function (req, res, next){
                 res.status(500).json({error: err.message});
                 return;
             }
-            res.status(200).json(parseProduct(result));
+            if(productHelper.validateProduct(result)){
+                res.status(200).json(productHelper.parseProduct(result[0]));
+            }else{
+                res.status(400).json({error: "Invalid ProductId"});
+            }
+
         });
 });
 

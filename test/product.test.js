@@ -36,22 +36,22 @@ describe('Product Route',() => {
         expect(response.body).toEqual({'error': 'Invalid ProductID'});
     })
 
-    it('GET /3 should return an array with product object for the productID:3', async () => {
+    it('GET /3 should return a product object for the productID:3', async () => {
         const mockData = testHelper.get_sql_mock_data(testHelper.mock_data_key.PRODUCT.name);
         mockDb.query.mockImplementation((sql, callback) => callback(null, mockData));
 
         const response = await request(app).get('/:productId');
         expect(response.status).toBe(200);
-        expect(Array.isArray(response.body)).toBe(true);
+        expect(typeof response.body === 'object').toBe(true);
     })
 
-    it('GET /xyz should return a blank array', async () => {
+    it('GET /xyz should return a blank object', async () => {
         const mockData = testHelper.get_sql_mock_data(testHelper.mock_data_key.INVALID_PRODUCT.name);
         mockDb.query.mockImplementation((sql, callback) => callback(null, mockData));
 
         const response = await request(app).get('/:productId');
-        expect(response.status).toBe(200);
-        expect(Object.keys(response.body).length).toEqual(0);
+        expect(response.status).toBe(400);
+        expect(response.body).toEqual({'error': 'Invalid ProductId'});
     })
 
 })
