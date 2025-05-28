@@ -49,8 +49,8 @@ class Sql {
     }
 
     add_new_product_to_db(product) {
-      const query = `INSERT INTO products (name,category,subcategory,brand,sku,barcode,mrp,selling_price,stock,size,description,image_url,expiration_date,tags)
-                            VALUES ('${product.name}','${product.category}','${product.subcategory}','${product.brand}','${product.sku}','${product.barcode}','${product.mrp}',
+      const query = `INSERT INTO products (name,category_header,category,subcategory,brand,sku,barcode,mrp,selling_price,stock,size,description,image_url,expiration_date,tags)
+                            VALUES ('${product.name}','${product.category_header}','${product.category}','${product.subcategory}','${product.brand}','${product.sku}','${product.barcode}','${product.mrp}',
                                     '${product.selling_price}','${product.stock}','${product.size}','${product.description}','${product.imageUrls}','${product.expiration_date}','${product.tags}')`;
       console.log("Preparing SQL Query : " + query);
       return query;
