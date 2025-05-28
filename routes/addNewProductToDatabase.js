@@ -13,8 +13,8 @@ router.post('/', upload.array('images', 10), async function (req, res, next) {
     const imageFiles = req.files;
     const imageUrls = [];
     const db = database();
-    if (!imageFiles || imageFiles.length < 3){
-        res.status(400).json({message: "Required At least 3 images"});
+    if (!imageFiles || imageFiles.length < 1){
+        res.status(400).json({message: "Required At least 2 images"});
         return;
     }
     // Check if product is already [resent in DB
