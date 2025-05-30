@@ -56,6 +56,11 @@ class Sql {
       return query;
     }
 
+    get_user_address(userId){
+        const query = `SELECT addr_line1, addr_line2 FROM addresses WHERE userid ='${userId}'`;
+        console.log("Preparing SQL Query : " + query);
+        return query;
+    }
     verify_login_details(phonenumber,password){
         const query =`SELECT * FROM users WHERE phonenumber='${phonenumber}' AND password='${password}'`;
         console.log("Preparing SQL Query : " + query);

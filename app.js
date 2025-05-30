@@ -7,6 +7,7 @@ const path = require("path");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
+const userAddressRouter = require('./routes/address');
 const app = express();
 
 // Ensure logs directory exists
@@ -42,6 +43,7 @@ app.use('/addNewProductToDatabase', require('./routes/addNewProductToDatabase'))
 app.use('/getAuthToken', require('./routes/getAuthToken'));
 app.use('/login', require('./routes/login'));
 app.use('/isvalidToken', require('./routes/isValidToken'));
+app.use('/getuseraddress', userAddressRouter);
 // 404 Handler
 app.use((req, res, next) => {
     res.status(404).json({success: false, message: "Endpoint Not Found",});
