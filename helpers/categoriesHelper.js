@@ -1,15 +1,19 @@
 class CategoryHelper {
-    parseCategoryResult(result) {
-        return result.reduce((acc, item) => {
-            if (!acc[item.category_header]) {
-                acc[item.category_header] = [];
+    parseCategoryResult(products) {
+        const result = {};
+        products.forEach(product => {
+            const header = product.category_header;
+            const category = product.category;
+
+            if (!result[header]) {
+                result[header] = new Set();
             }
-            acc[item.category_header].push({
-                name: item.category_name,
-                image: item.category_image
-            });
-            return acc;
-        }, {});
+            result[header].add(category);
+        });
+        Object.keys(result).forEach(header => {
+            result[header] = Array.from(result[header]).map(cat => ({ category: cat, image: cat+".png" }));
+        });
+        return result;
     }
 }
 module.exports = new CategoryHelper();

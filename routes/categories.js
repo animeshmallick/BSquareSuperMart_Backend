@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', function (req, res, next){
     const db = database();
-    db.query(Sql.get_all_categories(), (err, result) => {
+    db.query(Sql.get_all_products(), (err, result) => {
         if(err){
             res.status(500).json({error: err.message});
             return;
