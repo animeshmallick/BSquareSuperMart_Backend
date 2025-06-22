@@ -1,6 +1,5 @@
 // helpers/addressHelper.js
 
-// Default address to return if user not found
 class AddressHelper {
     defaultAddress = {
         address: "BSquareSupermart, Chinappa Layout, Mahadevapura",
@@ -13,17 +12,28 @@ class AddressHelper {
         if (!result || result.length === 0) {
             return {
                 found: false,
-                address: this.defaultAddress
+                address: []
             };
         }
 
-        const user = result[0];
+        // Filter out any rows that have no meaningful address data
+        const filteredAddresses = result
+            .filter(row => (row.addr_line1?.trim() || row.addr_line2?.trim()))
+            .map(row => ({
+                addr_line1: row.addr_line1,
+                addr_line2: row.addr_line2
+            }));
+
+        if (filteredAddresses.length === 0) {
+            return {
+                found: false,
+                address: []
+            };
+        }
+
         return {
             found: true,
-            address: {
-                addr_line1: user.addr_line1,
-                addr_line2: user.addr_line2
-            }
+            address: filteredAddresses
         };
     }
 }

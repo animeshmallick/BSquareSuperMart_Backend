@@ -7,6 +7,6 @@ router.get('/', (req, res) =>{
     res.status(200).json(ping);
 });
 router.post('/', token.verifyAuthToken, (req, res, next) => {
-    res.status(400).json({"message": "Ping From Backend Server"})
+    res.status(200).json({"message": "Ping From Backend Server"})
 });
 module.exports = router;
