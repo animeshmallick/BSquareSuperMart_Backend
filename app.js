@@ -43,6 +43,7 @@ app.use('/addNewProductToDatabase', require('./routes/addNewProductToDatabase'))
 app.use('/getAuthToken', require('./routes/getAuthToken'));
 app.use('/login', require('./routes/login'));
 app.use('/isvalidToken', require('./routes/isValidToken'));
+app.use('/getAllProducts', require('./routes/getAllProducts'));
 app.use('/getUserAddress', userAddressRouter);
 // 404 Handler
 app.use((req, res, next) => {

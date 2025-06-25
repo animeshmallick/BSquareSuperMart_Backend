@@ -1,4 +1,4 @@
-const database = require('../internal/database.js')
+const database = require('../internal/database.js');
 const CategoryHelper = require('../helpers/categoriesHelper.js');
 const Sql = require('../internal/sql.js');
 const express = require('express');
