@@ -45,6 +45,8 @@ app.use('/login', require('./routes/login'));
 app.use('/isvalidToken', require('./routes/isValidToken'));
 app.use('/getAllProducts', require('./routes/getAllProducts'));
 app.use('/getUserAddress', userAddressRouter);
+app.use('/getPaymentMethod', require('./routes/getPaymentMethod'));
+
 // 404 Handler
 app.use((req, res, next) => {
     res.status(404).json({success: false, message: "Endpoint Not Found",});
