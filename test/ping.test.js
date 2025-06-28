@@ -2,6 +2,7 @@ const request = require('supertest');
 const express = require('express');
 const pingTest = require('../routes/ping');
 const testHelper = require("../helpers/TestHelper.js");
+const token = require("../internal/token");
 
 const app = express();
 app.use('/', pingTest);
@@ -11,13 +12,20 @@ describe('Ping Router', () => {
         const res = await request(app).get('/');
 
         expect(res.statusCode).toEqual(200);
-        expect(res.body).toEqual(testHelper.get_mock_data(testHelper.mock_data_key.PING.name));
+        expect(res.body).toStrictEqual({"message": "Ping From Backend Server"});
+    });
+    it('POST / Call to Ping Router with AuthToken', async () => {
+        const authToken = token.getToken("test_user");
+        const res = await request(app).post('/').set('x-authorization', `Bearer ${authToken}`);
+
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toStrictEqual({"message": "Ping From Backend Server", "user": "test_user"});
     });
 
-    it('POST / Call to Ping Router', async () => {
+    it('POST / Call to Ping Router without authToken', async () => {
         const res = await request(app).post('/');
 
         expect(res.statusCode).toEqual(403);
-        expect(res.body).toEqual(testHelper.get_mock_data(testHelper.mock_data_key.UNAUTHORIZED.name));
+        expect(res.body).toStrictEqual({"message": "Authorization Token Missing"});
     });
 });

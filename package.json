@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm test && node ./bin/www",
+    "quick-start": "node ./bin/www",
     "test": "jest --verbose --coverage"
   },
   "dependencies": {

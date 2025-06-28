@@ -54,4 +54,11 @@ describe('Product Route',() => {
         expect(response.body).toEqual({'error': 'Invalid ProductId'});
     })
 
+    it('GET / should return an error if there is a database error', async () => {
+        mockDb.query.mockImplementation((sql, callback) => callback(new Error('DB Error')));
+        const response = await request(app).get('/:productId');
+        expect(response.status).toBe(500);
+        expect(response.body).toEqual({'error': 'DB Error'});
+    });
+
 })

@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const SECRET = process.env.JWT_SECRET_KEY;
+const SECRET = process.env.JWT_SECRET_KEY ?? 'default_secret_key';
 
 class Token {
     getToken(customer_id) {

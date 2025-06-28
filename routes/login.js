@@ -7,6 +7,8 @@ const router = express.Router();
 
 router.post('/', function (req, res, next) {
     const loginDetails = req.body;
+    if (!loginDetails.hasOwnProperty('phone') || !loginDetails.hasOwnProperty('password'))
+        return res.status(400).json({error: "Invalid Login Details"});
     let authToken ="";
     const db = database();
     db.query(Sql.verify_login_details(BigInt(loginDetails.phone), loginDetails.password), function (err, result) {
@@ -22,6 +24,5 @@ router.post('/', function (req, res, next) {
             res.status(401).json({error: "No User Details Found"});
         }
     });
-
 });
 module.exports = router;

@@ -10,10 +10,7 @@ router.get('/', token.verifyAuthToken, (req, res) => {
     console.log("GET /getPaymentMethod hit by:", req.customer_id);
 
     // Return fixed payment method
-    const paymentMethod = {
-        id: "cod",
-        name: "Pay on Delivery"
-    };
+    const paymentMethod = [{id: "cod", name: "Pay on Delivery"}];
 
     res.status(200).json(paymentMethod);
 });

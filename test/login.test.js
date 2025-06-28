@@ -1,0 +1,88 @@
+const express = require("express");
+const login = require("../routes/login");
+const database = require("../internal/database");
+const request = require("supertest");
+const testHelper = require("../helpers/TestHelper");
+
+jest.mock('../internal/database', () => {
+    return jest.fn(() => ({
+        query: jest.fn(),
+        end: jest.fn()
+    }));
+});
+
+const app = express();
+app.use(express.json());
+app.use('/', login);
+
+describe('Login Route', () => {
+    let mockDb;
+    beforeEach(() => {
+        mockDb = {
+            query: jest.fn(),
+            end: jest.fn()
+        };
+        database.mockReturnValue(mockDb);
+    });
+    it('GET / should return auth token on successfully login', async () => {
+        const mockData = testHelper.get_sql_mock_data(testHelper.mock_data_key.LOGIN.name);
+        mockDb.query.mockImplementation((sql, callback) => callback(null, mockData));
+
+        const response = await request(app).post('/')
+            .set('Content-Type', 'application/json')
+            .send({"phone": 1234567890, "password": "admin@2"});
+        expect(response.statusCode).toBe(200);
+        expect(response.body).toHaveProperty('authToken');
+        expect(response.body.authToken).not.toBe(null);
+    });
+
+    it('GET / should not return auth token with invalid user', async () => {
+        const mockData = testHelper.get_sql_mock_data(testHelper.mock_data_key.NO_USERS_FOUND.name);
+        mockDb.query.mockImplementation((sql, callback) => callback(null, mockData));
+
+        const response = await request(app).post('/')
+            .set('Content-Type', 'application/json')
+            .send({"phone": 1234567890, "password": "test"});
+        expect(response.statusCode).toBe(401);
+        expect(response.body).toStrictEqual({error: "No User Details Found"});
+    });
+
+    it('GET / should not return auth token when phone missing', async () => {
+        const response = await request(app).post('/')
+            .set('Content-Type', 'application/json')
+            .send({"password": "test"});
+        expect(response.statusCode).toBe(400);
+        expect(response.body).toStrictEqual({error: "Invalid Login Details"});
+    });
+
+    it('GET / should not return auth token when password missing', async () => {
+        const response = await request(app).post('/')
+            .set('Content-Type', 'application/json')
+            .send({"phone": 1234567890});
+        expect(response.statusCode).toBe(400);
+        expect(response.body).toStrictEqual({error: "Invalid Login Details"});
+    });
+
+    it('GET / should not return auth token when password missing', async () => {
+        const response = await request(app).post('/')
+            .set('Content-Type', 'application/json')
+            .send({});
+        expect(response.statusCode).toBe(400);
+        expect(response.body).toStrictEqual({error: "Invalid Login Details"});
+    });
+    it('GET / should not return auth token when password missing', async () => {
+        const response = await request(app).post('/')
+            .set('Content-Type', 'application/json')
+            .send();
+        expect(response.statusCode).toBe(400);
+        expect(response.body).toStrictEqual({error: "Invalid Login Details"});
+    });
+    it('GET / should return an error if there is a database error', async () => {
+        mockDb.query.mockImplementation((sql, callback) => callback(new Error('DB Error')));
+        const response = await request(app).post('/')
+            .set('Content-Type', 'application/json')
+            .send({"phone": 1234567890, "password": "test"});
+
+        expect(response.statusCode).toBe(500);
+    });
+});

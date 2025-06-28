@@ -11,7 +11,12 @@ class TestHelper {
         PRODUCTS_WHEN_CATEGORY_INVALID: {name: 'emptyProductsFromCategory.json', sql_query: Sql.get_products_from_category('Invalid')},
         PRODUCT: {name: 'product.json', sql_query:Sql.get_product_from_productId(3)},
         INVALID_PRODUCT: {name: 'emptyProduct.json', sql_query:Sql.get_product_from_productId('')},
-        SIMILAR_PRODUCTS: {name: 'similarProducts.json', sql_query:Sql.get_all_products()}
+        SIMILAR_PRODUCTS: {name: 'similarProducts.json', sql_query:Sql.get_all_products()},
+        LOGIN: {name: 'login.json'},
+        NO_USERS_FOUND: {name: 'noUserFound.json'},
+        NO_ADDRESS_FOUND: {name: 'noAddressFound.json'},
+        ADDRESS_FOUND: {name: 'userAddress.json'},
+        ALL_PRODUCTS: {name: 'all_products.json', sql_query: Sql.get_all_products()}
     });
     get_mock_data(mock_date_file_name){
         return require(util.format(`../mock_data/${mock_date_file_name}`));
