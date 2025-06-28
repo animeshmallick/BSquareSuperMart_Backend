@@ -1,8 +1,7 @@
 module.exports = {
     verbose: true,
     collectCoverage: true,
-    collectCoverageFrom: ["routes/**/*.js", "internal/**/*.js", "helpers/**/*.js", "constants/**/*.js",
-    "exceptions/**/*.js", "utils/**/*.js", "test/**/*.js", "!**/database.js"],
+    collectCoverageFrom: ["src/**/*.js"],
     coverageDirectory: "coverage",
     coverageReporters: ["html", "text-summary"],
     reporters: [
@@ -11,7 +10,7 @@ module.exports = {
             outputPath: "./test_results",
             filename: "report.html",
             pageTitle: "BSquare SuperMart Test Report",
-            expand: true,
+            expand: false,
             includeFailureMsg: true,
             includeConsoleLog: true
         }]

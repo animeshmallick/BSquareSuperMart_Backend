@@ -1,13 +1,12 @@
 require("dotenv").config();
 
 const express = require('express');
-const logger = require("./utils/logger");
+const logger = require("./src/utils/logger");
 const cors = require("cors");
 const path = require("path");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
-const userAddressRouter = require('./routes/address');
 const app = express();
 
 // Ensure logs directory exists
@@ -32,20 +31,20 @@ app.set('view engine', 'ejs');
 app.use(morgan('combined', { stream: accessLogStream }));
 
 // Routes
-app.use('/', require('./routes/ping'));
-app.use('/ping', require('./routes/ping'));
-app.use('/categories', require('./routes/categories'));
-app.use('/category', require('./routes/productsFromCategory'));
-app.use('/product', require('./routes/product'));
-app.use('/cart', require('./routes/cart'));
-app.use('/similarProducts', require('./routes/similarProducts'));
-app.use('/addNewProductToDatabase', require('./routes/addNewProductToDatabase'));
-app.use('/getAuthToken', require('./routes/getAuthToken'));
-app.use('/login', require('./routes/login'));
-app.use('/isvalidToken', require('./routes/isValidToken'));
-app.use('/getAllProducts', require('./routes/getAllProducts'));
-app.use('/getUserAddresses', userAddressRouter);
-app.use('/getPaymentMethod', require('./routes/getPaymentMethod'));
+app.use('/', require('./src/routes/ping'));
+app.use('/ping', require('./src/routes/ping'));
+app.use('/categories', require('./src/routes/categories'));
+app.use('/category', require('./src/routes/productsFromCategory'));
+app.use('/product', require('./src/routes/product'));
+app.use('/cart', require('./src/routes/cart'));
+app.use('/similarProducts', require('./src/routes/similarProducts'));
+app.use('/addNewProductToDatabase', require('./src/routes/addNewProductToDatabase'));
+app.use('/getAuthToken', require('./src/routes/getAuthToken'));
+app.use('/login', require('./src/routes/login'));
+app.use('/isvalidToken', require('./src/routes/isValidToken'));
+app.use('/getAllProducts', require('./src/routes/getAllProducts'));
+app.use('/getUserAddresses', require('./src/routes/address'));
+app.use('/getPaymentMethod', require('./src/routes/getPaymentMethod'));
 
 // 404 Handler
 app.use((req, res, next) => {

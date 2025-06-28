@@ -1,10 +1,10 @@
 const express = require("express");
-const getAllProducts = require("../routes/getAllProducts");
-const database = require("../internal/database");
+const getAllProducts = require("../src/routes/getAllProducts");
+const database = require("../src/internal/database");
 const request = require("supertest");
-const testHelper = require("../helpers/TestHelper");
+const testHelper = require("../src/helpers/TestHelper");
 
-jest.mock('../internal/database', () => {
+jest.mock('../src/internal/database', () => {
     return jest.fn(() => ({
         query: jest.fn(),
         end: jest.fn()

@@ -1,9 +1,7 @@
 const express = require("express");
-const getPaymentMethod = require("../routes/getPaymentMethod");
-const database = require("../internal/database");
+const getPaymentMethod = require("../src/routes/getPaymentMethod");
 const request = require("supertest");
-const testHelper = require("../helpers/TestHelper");
-const token = require("../internal/token");
+const token = require("../src/internal/token");
 
 const app = express();
 app.use(express.json());

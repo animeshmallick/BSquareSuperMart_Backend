@@ -1,8 +1,8 @@
 const request = require('supertest');
 const express = require('express');
-const pingTest = require('../routes/ping');
-const testHelper = require("../helpers/TestHelper.js");
-const token = require("../internal/token");
+const pingTest = require('../src/routes/ping');
+const testHelper = require("../src/helpers/TestHelper.js");
+const token = require("../src/internal/token");
 
 const app = express();
 app.use('/', pingTest);

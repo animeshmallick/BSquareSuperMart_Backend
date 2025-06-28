@@ -1,11 +1,11 @@
 const express = require("express");
-const address = require("../routes/address");
-const database = require("../internal/database");
+const address = require("../src/routes/address");
+const database = require("../src/internal/database");
 const request = require("supertest");
-const testHelper = require("../helpers/TestHelper");
-const token = require("../internal/token");
+const testHelper = require("../src/helpers/TestHelper");
+const token = require("../src/internal/token");
 
-jest.mock('../internal/database', () => {
+jest.mock('../src/internal/database', () => {
     return jest.fn(() => ({
         query: jest.fn(),
         end: jest.fn()

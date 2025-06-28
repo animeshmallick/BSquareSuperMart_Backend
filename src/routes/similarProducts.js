@@ -1,7 +1,7 @@
 
 const database = require('../internal/database.js');
 const SimilarProductsHelper = require('../helpers/similarProductsHelper.js');
-const Sql = require('../internal/sql.js');
+const Sql = require('../resource/sql.js');
 const express = require('express');
 
 const router = express.Router();

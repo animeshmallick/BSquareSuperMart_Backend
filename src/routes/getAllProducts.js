@@ -1,5 +1,5 @@
 const database = require('../internal/database');
-const Sql = require('../internal/sql');
+const Sql = require('../resource/sql');
 const express = require('express');
 const GetAllProductsHelper = require("../helpers/getAllProducts");
 

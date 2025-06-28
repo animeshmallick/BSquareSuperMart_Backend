@@ -1,4 +1,4 @@
-const sql = require('../internal/sql'); // Update path as needed
+const sql = require('../src/resource/sql'); // Update path as needed
 
 describe('Sql Class', () => {
 

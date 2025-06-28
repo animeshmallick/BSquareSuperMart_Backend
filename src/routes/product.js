@@ -1,6 +1,6 @@
 const database = require('../internal/database.js')
 const productHelper = require('../helpers/productHelper.js');
-const Sql = require('../internal/sql.js');
+const Sql = require('../resource/sql.js');
 const express = require('express');
 const logger = require('../utils/logger.js');
 

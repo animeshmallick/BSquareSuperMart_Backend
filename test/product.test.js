@@ -1,4 +1,4 @@
-jest.mock('../internal/database', () => {
+jest.mock('../src/internal/database', () => {
     return jest.fn(() => ({
         query: jest.fn(),
         end: jest.fn()
@@ -7,9 +7,9 @@ jest.mock('../internal/database', () => {
 
 const request = require('supertest');
 const express = require('express');
-const testHelper = require("../helpers/TestHelper.js");
-const database = require('../internal/database');
-const productRouter = require("../routes/product");
+const testHelper = require("../src/helpers/TestHelper.js");
+const database = require('../src/internal/database');
+const productRouter = require("../src/routes/product");
 
 const app = express();
 app.use('/', productRouter);

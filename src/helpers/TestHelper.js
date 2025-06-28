@@ -1,5 +1,5 @@
 const util = require("util");
-const Sql = require("../internal/sql.js");
+const Sql = require("../resource/sql.js");
 class TestHelper {
     mock_data_key = Object.freeze({
         CATEGORIES: {name: 'categories.json', sql_query: Sql.get_all_categories()},
@@ -22,7 +22,7 @@ class TestHelper {
         return require(util.format(`../mock_data/${mock_date_file_name}`));
     }
     get_sql_mock_data(sql_mock_data_file_name){
-        return require(util.format(`../mock_data/sql_mock_data/${sql_mock_data_file_name}`));
+        return require(util.format(`../../test/resource/mock_data/sql_mock_data/${sql_mock_data_file_name}`));
     }
 }
 module.exports = new TestHelper();
