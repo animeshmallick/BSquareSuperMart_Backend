@@ -1,9 +1,7 @@
 const express = require("express");
 const isValidToken = require("../routes/isValidToken");
-const database = require("../internal/database");
 const request = require("supertest");
-const testHelper = require("../helpers/TestHelper");
-const token = require("../internal/Token");
+const token = require("../internal/token");
 
 const app = express();
 app.use(express.json());
