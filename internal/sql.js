@@ -57,7 +57,7 @@ class Sql {
     }
 
     get_user_address(userId){
-        const query = `SELECT addr_line1, addr_line2 FROM addresses WHERE userid ='${userId}'`;
+        const query = `SELECT addr_line1, addr_line2, address_id FROM addresses WHERE userid ='${userId}'`;
         console.log("Preparing SQL Query : " + query);
         return query;
     }
