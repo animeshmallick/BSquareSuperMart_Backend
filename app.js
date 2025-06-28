@@ -7,6 +7,7 @@ const path = require("path");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const fs = require("fs");
+const userAddressRouter = require('./routes/address');
 const app = express();
 
 // Ensure logs directory exists
@@ -43,7 +44,7 @@ app.use('/getAuthToken', require('./routes/getAuthToken'));
 app.use('/login', require('./routes/login'));
 app.use('/isvalidToken', require('./routes/isValidToken'));
 app.use('/getAllProducts', require('./routes/getAllProducts'));
-app.use('/getUserAddress', require('./routes/address'));
+app.use('/getUserAddresses', userAddressRouter);
 app.use('/getPaymentMethod', require('./routes/getPaymentMethod'));
 
 // 404 Handler
