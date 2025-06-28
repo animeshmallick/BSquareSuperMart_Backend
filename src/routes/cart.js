@@ -12,7 +12,11 @@ router.post('/', function (req, res, next){
         db.query(Sql.get_all_products_from_ids(Object.keys(product_map)), (err, result) => {
             const cart_products = cartHelper.parseCartProducts(result, product_map);
             const cart_bill = cartHelper.getBill(cart_products);
-            const cart_response = {products: cart_products, bill: cart_bill};
+            const cart_response = {
+                products: cart_products,
+                bill: cart_bill,
+                purchase_id: cartHelper.getPurchaseID()
+            };
             res.status(200).json(cart_response);
         });
         db.end();
