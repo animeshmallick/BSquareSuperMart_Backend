@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm test && node ./bin/www",
-    "test": "jest --verbose"
+    "test": "jest --verbose --coverage"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.806.0",

@@ -1,6 +1,7 @@
 module.exports = {
     verbose: true,
     collectCoverage: true,
+    collectCoverageFrom: ["routes/**/*.js"],
     coverageDirectory: "coverage",
     coverageReporters: ["html", "text-summary"],
     reporters: [
