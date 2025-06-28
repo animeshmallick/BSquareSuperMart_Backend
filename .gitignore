@@ -5,6 +5,9 @@
 .env.development
 .env.test
 .env.production
+package-lock.json
+report.html
+jest-html-reporters-attach
 
 # Node modules
 node_modules/

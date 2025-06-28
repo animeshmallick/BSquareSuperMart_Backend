@@ -1,17 +1,20 @@
 module.exports = {
     verbose: true,
     collectCoverage: true,
-    collectCoverageFrom: ["routes/**/*.js"],
+    collectCoverageFrom: ["routes/**/*.js", "internal/**/*.js", "helpers/**/*.js", "constants/**/*.js",
+    "exceptions/**/*.js", "utils/**/*.js", "test/**/*.js"],
     coverageDirectory: "coverage",
     coverageReporters: ["html", "text-summary"],
     reporters: [
         "default",
-        ["jest-stare", {
-            resultDir: "test_results",
-            reportTitle: "Backend Test Report",
-            coverageLink: "../coverage/lcov-report/index.html", // this links coverage
-            additionalResultsProcessors: [],
-            includeConsoleOutput: true
+        ["jest-html-reporters", {
+            outputPath: "./test_results",
+            filename: "report.html",
+            pageTitle: "BSquare SuperMart Test Report",
+            expand: true,
+            includeFailureMsg: true,
+            includeConsoleLog: true
         }]
     ]
+
 };
