@@ -43,8 +43,6 @@ describe('Cart Route', () => {
         expect(response.status).toBe(200);
         expect(response.body).toHaveProperty('products');
         expect(response.body).toHaveProperty('bill');
-        expect(response.body).toHaveProperty('purchase_id');
-        expect(response.body.purchase_id.startsWith('PID-'));
     });
     it('POST / should validate cart with 1 products', async () => {
         const mockData = testHelper.get_sql_mock_data(testHelper.mock_data_key.CART_WITH_PRODUCTS_1.name);
@@ -55,8 +53,6 @@ describe('Cart Route', () => {
         expect(response.status).toBe(200);
         expect(response.body).toHaveProperty('products');
         expect(response.body).toHaveProperty('bill');
-        expect(response.body).toHaveProperty('purchase_id');
-        expect(response.body.purchase_id.startsWith('PID-'));
     });
     it('POST / should validate empty cart', async () => {
         const response = await request(app).post('/')

@@ -1,0 +1,19 @@
+// routes/getPurchaseID.js
+
+const express = require('express');
+const token = require('../internal/token'); // Middleware to verify token
+const helper = require('../helpers/getPurchaseIdHelper');
+const router = express.Router();
+
+// GET route with auth token
+router.get('/', token.verifyAuthToken, (req, res) => {
+    console.log("GET /getPurchaseId API hit by:", req.customer_id);
+
+    // Return fixed payment method
+    const purchaseID = helper.getPurchaseID();
+    console.log(`Purchase ID: ${purchaseID}`);
+
+    res.status(200).json({purchaseID: purchaseID});
+});
+
+module.exports = router;

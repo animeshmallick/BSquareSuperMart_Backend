@@ -45,6 +45,7 @@ app.use('/isvalidToken', require('./src/routes/isValidToken'));
 app.use('/getAllProducts', require('./src/routes/getAllProducts'));
 app.use('/getUserAddresses', require('./src/routes/address'));
 app.use('/getPaymentMethod', require('./src/routes/getPaymentMethod'));
+app.use('/getPurchaseID', require('./src/routes/getPurchaseID'));
 
 // 404 Handler
 app.use((req, res, next) => {
