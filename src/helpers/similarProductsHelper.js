@@ -1,6 +1,7 @@
 const Fuse = require("fuse.js");
 class SimilarProductsHelper {
     parseSimilarProducts(products) {
+        console.log(products);
         const similarProducts = [];
         products.forEach((product) => {
             const similarProduct = {
@@ -22,9 +23,12 @@ class SimilarProductsHelper {
         };
 
         const referenceProduct = result.find(item => item.id === productId);
+        if(!referenceProduct){
+            return {error: "Invalid ProductId"};
+        }
 
-            const fuse = new Fuse(result, options);
-            const searchedProducts = fuse.search(referenceProduct.name);
+        const fuse = new Fuse(result, options);
+        const searchedProducts = fuse.search(referenceProduct.name);
 
         const similarProducts  = searchedProducts
             .filter(r => r.item.id !== productId)

@@ -11,29 +11,17 @@ const router = express.Router();
 
 router.get('/:productId', function (req, res, next){
     const productId = req.params.productId;
-    const db= database();
-        db.query(Sql.get_product_from_productId(productId), (err, result) => {
-            db.end();
-            if(err){
-                res.status(500).json({error: err.message});
-                return;
-            }
-            if(productHelper.validateProduct(result)){
-                res.status(200).json(productHelper.parseProduct(result[0]));
+    database.query(Sql.get_product_from_productId(productId))
+        .then(sql_response => {
+            if(productHelper.validateProduct(sql_response)){
+                res.status(200).json(productHelper.parseProduct(sql_response[0]));
             }else{
                 res.status(400).json({error: "Invalid ProductId"});
             }
-
+        })
+        .catch(err => {
+            res.status(500).json({error: err.message});
         });
 });
-
-router.get('/', function (req, res, next) {
-    logger.info('GET');
-    res.status(400).json({error: 'Invalid ProductID'});
-})
-
-router.post('/', function (req, res, next){
-    res.status(400).json({'error': 'Invalid Router'});
-})
 
 module.exports = router;

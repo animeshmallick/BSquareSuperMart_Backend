@@ -6,17 +6,12 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', function (req, res, next){
-    const db = database();
-    db.query(Sql.get_all_products(), (err, result) => {
-        if(err){
+    database.query(Sql.get_all_products())
+        .then(result => {
+            res.status(200).json(CategoryHelper.parseCategoryResult(result));
+        })
+        .catch(err => {
             res.status(500).json({error: err.message});
-            return;
-        }
-        res.status(200).json(CategoryHelper.parseCategoryResult(result));
-    });
-    db.end();
-});
-router.post('/', function (req, res, next){
-    res.status(400).json({'error': 'Invalid Router'})
+        });
 });
 module.exports = router;

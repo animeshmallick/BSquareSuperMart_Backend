@@ -1,32 +1,26 @@
+jest.mock('../src/internal/database', () => ({
+    query: jest.fn(),
+    end: jest.fn()
+}));
+
 const express = require("express");
 const getAllProducts = require("../src/routes/getAllProducts");
 const database = require("../src/internal/database");
 const request = require("supertest");
 const testHelper = require("../src/helpers/TestHelper");
 
-jest.mock('../src/internal/database', () => {
-    return jest.fn(() => ({
-        query: jest.fn(),
-        end: jest.fn()
-    }));
-});
-
 const app = express();
 app.use(express.json());
 app.use('/', getAllProducts);
 
 describe('GetAllProducts Route', () => {
-    let mockDb;
-    beforeEach(() => {
-        mockDb = {
-            query: jest.fn(),
-            end: jest.fn()
-        };
-        database.mockReturnValue(mockDb);
-    });
+    beforeEach(() => ({
+        query: jest.fn(),
+        end: jest.fn()
+    }));
     it('GET / should return products', async () => {
         const mockData = testHelper.get_sql_mock_data(testHelper.mock_data_key.ALL_PRODUCTS.name);
-        mockDb.query.mockImplementation((sql, callback) => callback(null, mockData));
+        database.query.mockImplementation(() => Promise.resolve(mockData));
 
         const response = await request(app).get('/');
         expect(response.statusCode).toBe(200);
@@ -47,9 +41,9 @@ describe('GetAllProducts Route', () => {
     });
 
     it('GET / should return an error if there is a database error', async () => {
-        mockDb.query.mockImplementation((sql, callback) => callback(new Error('DB Error')));
+        database.query.mockImplementation(() => Promise.reject(new Error("DB Error")));
         const response = await request(app).get('/');
-        console.log(response.body);
+        
         expect(response.statusCode).toBe(500);
         expect(response.body).toStrictEqual({error: "DB Error"});
     });

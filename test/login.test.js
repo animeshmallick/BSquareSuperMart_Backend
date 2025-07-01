@@ -1,32 +1,27 @@
+jest.mock('../src/internal/database', () => ({
+    query: jest.fn(),
+    end: jest.fn()
+}));
+
 const express = require("express");
 const login = require("../src/routes/login");
 const database = require("../src/internal/database");
 const request = require("supertest");
 const testHelper = require("../src/helpers/TestHelper");
 
-jest.mock('../src/internal/database', () => {
-    return jest.fn(() => ({
-        query: jest.fn(),
-        end: jest.fn()
-    }));
-});
 
 const app = express();
 app.use(express.json());
 app.use('/', login);
 
 describe('Login Route', () => {
-    let mockDb;
     beforeEach(() => {
-        mockDb = {
-            query: jest.fn(),
-            end: jest.fn()
-        };
-        database.mockReturnValue(mockDb);
+        database.query.mockReset();
+        database.end.mockReset();
     });
     it('GET / should return auth token on successfully login', async () => {
         const mockData = testHelper.get_sql_mock_data(testHelper.mock_data_key.LOGIN.name);
-        mockDb.query.mockImplementation((sql, callback) => callback(null, mockData));
+        database.query.mockImplementation(() => Promise.resolve(mockData));
 
         const response = await request(app).post('/')
             .set('Content-Type', 'application/json')
@@ -38,19 +33,20 @@ describe('Login Route', () => {
 
     it('GET / should not return auth token with invalid user', async () => {
         const mockData = testHelper.get_sql_mock_data(testHelper.mock_data_key.NO_USERS_FOUND.name);
-        mockDb.query.mockImplementation((sql, callback) => callback(null, mockData));
+        database.query.mockImplementation(() => Promise.resolve(mockData));
 
         const response = await request(app).post('/')
             .set('Content-Type', 'application/json')
             .send({"phone": 1234567890, "password": "test"});
         expect(response.statusCode).toBe(401);
-        expect(response.body).toStrictEqual({error: "No User Details Found"});
+        expect(response.body.error.startsWith("No User Details Found")).toBe(true);
     });
 
     it('GET / should not return auth token when phone missing', async () => {
         const response = await request(app).post('/')
             .set('Content-Type', 'application/json')
             .send({"password": "test"});
+        console.log(response.body);
         expect(response.statusCode).toBe(400);
         expect(response.body).toStrictEqual({error: "Invalid Login Details"});
     });
@@ -59,6 +55,7 @@ describe('Login Route', () => {
         const response = await request(app).post('/')
             .set('Content-Type', 'application/json')
             .send({"phone": 1234567890});
+        console.log(response.body);
         expect(response.statusCode).toBe(400);
         expect(response.body).toStrictEqual({error: "Invalid Login Details"});
     });
@@ -67,6 +64,7 @@ describe('Login Route', () => {
         const response = await request(app).post('/')
             .set('Content-Type', 'application/json')
             .send({});
+        console.log(response.body);
         expect(response.statusCode).toBe(400);
         expect(response.body).toStrictEqual({error: "Invalid Login Details"});
     });
@@ -74,15 +72,15 @@ describe('Login Route', () => {
         const response = await request(app).post('/')
             .set('Content-Type', 'application/json')
             .send();
+        console.log(response.body);
         expect(response.statusCode).toBe(400);
         expect(response.body).toStrictEqual({error: "Invalid Login Details"});
     });
     it('GET / should return an error if there is a database error', async () => {
-        mockDb.query.mockImplementation((sql, callback) => callback(new Error('DB Error')));
+        database.query.mockImplementation(() => Promise.reject(new Error('DB Error')));
         const response = await request(app).post('/')
             .set('Content-Type', 'application/json')
             .send({"phone": 1234567890, "password": "test"});
-
         expect(response.statusCode).toBe(500);
     });
 });

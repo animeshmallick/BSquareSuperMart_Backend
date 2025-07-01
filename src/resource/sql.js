@@ -9,7 +9,7 @@ class Sql {
         }
         const safeCategory = category.replace(/'/g, "''");
         const query = `SELECT * FROM products WHERE category='${safeCategory}';`;
-        console.log("Preparing SQL Query: " + query);
+        
         return query;
     }
 
@@ -24,19 +24,19 @@ class Sql {
             return Number(id);
         });
         const query = `SELECT * FROM products WHERE id IN (${numericIds.join(',')});`;
-        console.log("Preparing SQL Query : " + query);
+        
         return query;
     }
 
     get_product_from_productId(productId) {
         const query = `SELECT * FROM products WHERE id = '${productId}';`;
-        console.log("Preparing SQL Query : " + query);
+        
         return query;
     }
 
     get_all_products(){
         const query = `SELECT * FROM products;`;
-        console.log("Preparing SQL Query : " + query);
+        
         return query;
     }
 
@@ -44,7 +44,7 @@ class Sql {
         const query = `SELECT COUNT(*) as 'length' FROM products where name = '${product.name}' and 
                                     category = '${product.category}' and subcategory = '${product.subcategory}' and 
                                     brand = '${product.brand}' and size = '${product.size}'`;
-        console.log("Preparing SQL Query : " + query);
+        
         return query;
     }
 
@@ -52,18 +52,18 @@ class Sql {
       const query = `INSERT INTO products (name,category_header,category,subcategory,brand,sku,barcode,mrp,selling_price,stock,size,description,image_url,expiration_date,tags)
                             VALUES ('${product.name}','${product.category_header}','${product.category}','${product.subcategory}','${product.brand}','${product.sku}','${product.barcode}','${product.mrp}',
                                     '${product.selling_price}','${product.stock}','${product.size}','${product.description}','${product.imageUrls}','${product.expiration_date}','${product.tags}')`;
-      console.log("Preparing SQL Query : " + query);
+      
       return query;
     }
 
     get_user_address(userId){
         const query = `SELECT addr_line1, addr_line2, address_id FROM addresses WHERE userid ='${userId}'`;
-        console.log("Preparing SQL Query : " + query);
+        
         return query;
     }
     verify_login_details(phonenumber,password){
         const query =`SELECT * FROM users WHERE phonenumber='${phonenumber}' AND password='${password}'`;
-        console.log("Preparing SQL Query : " + query);
+        
         return query;
     }
 }

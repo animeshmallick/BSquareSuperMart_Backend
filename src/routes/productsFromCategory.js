@@ -6,24 +6,13 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/:category', function (req, res, next){
-    const category=req.params.category;
-    const db= database();
-    db.query(Sql.get_products_from_category(category), (err, result) => {
-        if(err){
+    const category = req.params.category;
+    database.query(Sql.get_products_from_category(category))
+        .then(sql_response => {
+            res.status(200).json(parseProductsPerCategory(sql_response));
+        })
+        .catch(err => {
             res.status(500).json({error: err.message});
-            return;
-        }
-        res.status(200).json(parseProductsPerCategory(result));
-    });
-    db.end();
+        });
 });
-
-router.get('/', function (req, res, next){
-    res.status(400).json({'error': 'Invalid Category'});
-});
-
-router.post('/', function (req, res, next){
-    res.status(400).json({'error': 'Invalid Router'})
-});
-
 module.exports = router;

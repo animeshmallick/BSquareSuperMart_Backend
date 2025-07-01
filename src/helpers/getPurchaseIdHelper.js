@@ -14,7 +14,7 @@ class GetPurchaseIdHelper {
         const randomSuffix = Math.random().toString(36).substring(2, 10).toUpperCase(); // 4-letter random string
 
         const pid = `PID-${datetimePart}-${randomSuffix}`;
-        console.log(`New PurchaseID Generated: ${pid}`);
+        
         return pid;
     }
 }

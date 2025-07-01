@@ -24,7 +24,7 @@ class AddressHelper {
         if (filteredAddresses.length === 0) {
             return {userAddress: [], storeAddress: this.defaultAddress};
         }
-
+        console.log(filteredAddresses);
         return {userAddress: filteredAddresses, storeAddress: this.defaultAddress};
     }
 }

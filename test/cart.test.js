@@ -1,9 +1,7 @@
-jest.mock('../src/internal/database', () => {
-    return jest.fn(() => ({
-        query: jest.fn(),
-        end: jest.fn()
-    }));
-});
+jest.mock('../src/internal/database', () => ({
+    query: jest.fn(),
+    end: jest.fn()
+}));
 
 const request = require('supertest');
 const express = require('express');
@@ -16,24 +14,15 @@ app.use(express.json());
 app.use('/', cart);
 
 describe('Cart Route', () => {
-    let mockDb;
     beforeEach(() => {
-        mockDb = {
-            query: jest.fn(),
-            end: jest.fn()
-        };
-        database.mockReturnValue(mockDb);
-    });
-
-    it('GET / should return invalid router', async () => {
-        const response = await request(app).get('/');
-        expect(response.status).toBe(400);
-        expect(response.body).toEqual({ error: 'Invalid Router'});
+        // Reset mock calls before each test
+        database.query.mockReset();
+        database.end.mockReset();
     });
 
     it('POST / should validate cart with 2 products', async () => {
         const mockData = testHelper.get_sql_mock_data(testHelper.mock_data_key.CART_WITH_PRODUCTS_2.name);
-        mockDb.query.mockImplementation((sql, callback) => callback(null, mockData));
+        database.query.mockImplementation(() => Promise.resolve(mockData));
         const response = await request(app).post('/')
             .set('Content-Type', 'application/json')
             .send([
@@ -46,7 +35,7 @@ describe('Cart Route', () => {
     });
     it('POST / should validate cart with 1 products', async () => {
         const mockData = testHelper.get_sql_mock_data(testHelper.mock_data_key.CART_WITH_PRODUCTS_1.name);
-        mockDb.query.mockImplementation((sql, callback) => callback(null, mockData));
+        database.query.mockImplementation(() => Promise.resolve(mockData));
         const response = await request(app).post('/')
             .set('Content-Type', 'application/json')
             .send([{"ProductID": "2", "Quantity": 1}]);

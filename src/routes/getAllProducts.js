@@ -6,13 +6,12 @@ const GetAllProductsHelper = require("../helpers/getAllProducts");
 const router = express.Router();
 
 router.get("/", function (req, res, next) {
-    const db = database();
-    db.query(Sql.get_all_products(), (err, result) => {
-        if (err)
-            return res.status(500).json({error: err.message});
-
-        const parsedResult = GetAllProductsHelper.parseResultForBetterSearch(result);
-        res.status(200).json(parsedResult);
-    })
+    database.query(Sql.get_all_products())
+        .then(sql_response =>{
+            res.status(200).json(GetAllProductsHelper.parseResultForBetterSearch(sql_response));
+        })
+        .catch(err => {
+            res.status(500).json({error: err.message});
+        });
 });
 module.exports = router;
