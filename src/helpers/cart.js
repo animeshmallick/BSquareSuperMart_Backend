@@ -51,5 +51,11 @@ class CartHelper {
         bill.total_bill = Object.values(bill).reduce((sum, value) => sum + value, 0);
         return bill;
     }
+    createCartBill(allProducts, product_map){
+        return {
+            products: this.parseCartProducts(allProducts, product_map),
+            bill: this.getBill(this.parseCartProducts(allProducts, product_map))
+        };
+    }
 }
 module.exports = new CartHelper();

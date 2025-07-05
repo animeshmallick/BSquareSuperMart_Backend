@@ -1,0 +1,13 @@
+class PurchaseStatus {
+    constructor() {
+        this.PLACED = "PLACED"
+        this.CONFIRMED = "CONFIRMED"
+        this.PACKAGING_IN_PROGRESS = "PACKAGING_IN_PROGRESS"
+        this.PACKAGING_COMPLETED = "PACKAGING_COMPLETED"
+        this.OUT_FOR_DELIVERY = "OUT_FOR_DELIVERY"
+        this.CANCELLED = "CANCELLED"
+        this.DELIVERED_WITH_PAYMENT_PENDING = "DELIVERED_WITH_PAYMENT_PENDING"
+        this.DELIVERED_WITH_PAYMENT_SUCCESS = "DELIVERED_WITH_PAYMENT_SUCCESS"
+    }
+}
+module.exports = new PurchaseStatus();

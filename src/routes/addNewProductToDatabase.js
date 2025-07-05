@@ -33,9 +33,6 @@ router.post('/', upload.array('images', 10), async function (req, res, next) {
                     })
                     .catch(err => {
                         res.status(500).json({message: 'Something went wrong.'});
-                    })
-                    .finally(() => {
-                        database.end();
                     });
             } else {
                 res.status(400).json({message: 'Product already exists in Database'});

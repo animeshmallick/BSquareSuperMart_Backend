@@ -66,6 +66,26 @@ class Sql {
         
         return query;
     }
+    insertIntoOrdersTable(){
+        const query = "INSERT INTO orders (order_id,product_id,quantity) VALUES ?";
+        return query;
+    }
+    reduceInventory() {
+        const query = `UPDATE products SET stock = stock - 1 WHERE id in (?)`;
+        return query;
+    }
+    verify_address_belong_to_user(userId,address){
+        const query = `SELECT * FROM addresses WHERE USERID ='${userId}' AND address_id ='${address}'`;
+        return query;
+    }
+    insertIntoPurchaseTable(){
+        const query = "INSERT INTO purchase (purchase_id, customer_id, address_id, order_id) VALUES ?";
+        return query;
+    }
+    get_purchase_details(pid){
+        const query = `SELECT * FROM purchase where purchase_id ='${pid}'`;
+        return query;
+    }
 }
 
 module.exports = new Sql();

@@ -10,12 +10,7 @@ router.post('/', function (req, res, next){
         const product_map = cartHelper.getProductMap(req.body);
         database.query(Sql.get_all_products_from_ids(Object.keys(product_map)))
             .then(result => {
-                const cart_products = cartHelper.parseCartProducts(result, product_map);
-                const cart_bill = cartHelper.getBill(cart_products);
-                const cart_response = {
-                    products: cart_products,
-                    bill: cart_bill
-                };
+                const cart_response = cartHelper.createCartBill(result, product_map);
                 res.status(200).json(cart_response);
             })
             .catch(err => {
