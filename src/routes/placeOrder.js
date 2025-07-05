@@ -3,7 +3,7 @@ const placeOrderHelper = require('../helpers/placeOrderHelper.js');
 const Sql = require('../resource/sql.js');
 const express = require('express');
 const token = require('../internal/token');
-const PurchaseStatus = require("../internal/PurchaseStatus");
+const PurchaseStatus = require("../constants/PurchaseStatus");
 const util = require("../utils/utils.js");
 
 const router = express.Router();
