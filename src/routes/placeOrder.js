@@ -32,13 +32,13 @@ router.post('/', token.verifyAuthToken,
                 database.query(Sql.reduceInventory(), [placeOrderHelper.convertProductIdToArray(purchase_doc.orders)])
                     .then(result => {
                         purchase_doc.inventory_reduced = true;
+                        purchase_doc.status = PurchaseStatus.PLACED;
                         console.log("Inventory Reduced Successfully");
                         database.query(Sql.insertIntoPurchaseTable(),
                             [[placeOrderHelper.getInsertablePurchaseDoc(purchase_doc)]])
                             .then(result => {
                                 purchase_doc.signed = true;
                                 purchase_doc.placedAt = util.getDateTimeStringFormatted();
-                                purchase_doc.status = PurchaseStatus.PLACED;
                                 console.log("Purchase Document Inserted Successfully");
                                 res.status(201).json(purchase_doc);
                             })

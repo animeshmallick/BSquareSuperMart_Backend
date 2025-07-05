@@ -83,7 +83,7 @@ class PlaceOrderHelper {
     }
     getInsertablePurchaseDoc(purchase_doc){
         return [purchase_doc.purchase_id, purchase_doc.customer_id, purchase_doc.address.address_id,
-            purchase_doc.orders.map(order => order.orderID).join("&&")]
+            purchase_doc.orders.map(order => order.orderID).join("&&"), purchase_doc.status]
     }
 }
 module.exports = new PlaceOrderHelper();

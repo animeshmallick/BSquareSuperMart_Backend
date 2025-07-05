@@ -62,7 +62,7 @@ class Sql {
         return query;
     }
     verify_login_details(phonenumber,password){
-        const query =`SELECT * FROM users WHERE phonenumber='${phonenumber}' AND password='${password}'`;
+        const query =`SELECT * FROM users WHERE phone='${phonenumber}' AND password='${password}'`;
         
         return query;
     }
@@ -79,12 +79,22 @@ class Sql {
         return query;
     }
     insertIntoPurchaseTable(){
-        const query = "INSERT INTO purchase (purchase_id, customer_id, address_id, order_id) VALUES ?";
+        const query = "INSERT INTO purchase (purchase_id, customer_id, address_id, order_id, status) VALUES ?";
         return query;
     }
     get_purchase_details(pid){
         const query = `SELECT * FROM purchase where purchase_id ='${pid}'`;
         return query;
+    }
+    get_all_purchase(date){
+        const query = `SELECT * FROM purchase where purchase_id LIKE 'PID-${date}%-%'`;
+        return query;
+    }
+    get_user_address_query() {
+        return "SELECT * FROM addresses WHERE address_id = ?"
+    }
+    get_user_phoneNumber_query() {
+        return "SELECT phone FROM users WHERE userid = ?"
     }
 }
 
