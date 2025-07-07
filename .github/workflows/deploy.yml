@@ -38,8 +38,8 @@ jobs:
           USER: ${{ secrets.EC2_USER }}
         run: |
           ssh $USER@$HOST << 'EOF'
-            cd ~/BSquareSuperMart_Backend
-            git config --global --add safe.directory /home/***/BSquareSuperMart_Backend
+            cd /var/www/BSquareSuperMart_Backend
+            git config --global --add safe.directory /var/www/BSquareSuperMart_Backend
             sudo git pull origin mainline
             sudo npm install
             pm2 restart backend || pm2 start bin/www --name backend --force
