@@ -79,7 +79,7 @@ class Sql {
         return query;
     }
     insertIntoPurchaseTable(){
-        const query = "INSERT INTO purchase (purchase_id, customer_id, address_id, order_id, status) VALUES ?";
+        const query = "INSERT INTO purchase (purchase_id, customer_id, address_id, order_id, status, payment_id) VALUES ?";
         return query;
     }
     get_purchase_details(pid){
@@ -96,6 +96,15 @@ class Sql {
     get_user_phoneNumber_query() {
         return "SELECT phone FROM users WHERE userid = ?"
     }
+    get_address(addressId){
+        return `SELECT * FROM addresses WHERE address_id = '${addressId}'`;
+    }
+    get_orders(order_ids) {
+        const quoted_ids = order_ids.map(id => `'${id}'`);
+        const query = `SELECT * FROM orders WHERE order_id IN (${quoted_ids.join(',')})`;
+        return query;
+    }
+
 }
 
 module.exports = new Sql();
