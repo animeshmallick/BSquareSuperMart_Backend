@@ -1,13 +1,10 @@
 const util = require('../utils/utils.js');
 class GetPurchaseIdHelper {
-    #getRamdomString(){
-        return Math.random().toString(36).substring(2, 10).toUpperCase();
-    }
     getPurchaseID(){
-        return `PID-${util.getDateTimeString()}-${this.#getRamdomString()}`;
+        return `PID-${util.getDateTimeString()}-${util.getRamdomString()}`;
     }
     getOrderID(pid){
-        return `OID-${util.getDateTimeString()}-${pid.split('-')[2]}-${this.#getRamdomString()}`;
+        return `OID-${util.getDateTimeString()}-${pid.split('-')[2]}-${util.getRamdomString()}`;
     }
 }
 module.exports = new GetPurchaseIdHelper();
