@@ -104,7 +104,11 @@ class Sql {
         const query = `SELECT * FROM orders WHERE order_id IN (${quoted_ids.join(',')})`;
         return query;
     }
-
+    add_new_address(customerId, address){
+        const query = `INSERT INTO addresses(USERID,address_id,addr_line1,addr_line2) 
+                              VALUES ('${customerId}','DUMMY','${address.addr_line1}','${address.addr_line2}')`;
+        return query;
+    }
 }
 
 module.exports = new Sql();

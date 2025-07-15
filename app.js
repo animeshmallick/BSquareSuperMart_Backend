@@ -50,6 +50,7 @@ app.use('/placeOrder', require('./src/routes/placeOrder'));
 app.use('/adminLogin', require('./src/routes/adminLogin'));
 app.use('/getAllPurchase', require('./src/routes/getAllPurchase'));
 app.use('/getPurchaseDoc', require('./src/routes/getPurchaseDocument'));
+app.use('/addAddress', require('./src/routes/addAddress'));
 
 // 404 Handler
 app.use((req, res, next) => {
