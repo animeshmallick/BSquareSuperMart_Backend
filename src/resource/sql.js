@@ -105,8 +105,8 @@ class Sql {
         return query;
     }
     add_new_address(customerId, address){
-        const query = `INSERT INTO addresses(USERID,address_id,addr_line1,addr_line2) 
-                              VALUES ('${customerId}','DUMMY','${address.addr_line1}','${address.addr_line2}')`;
+        const query = `INSERT INTO addresses(USERID,address_id,addr_line1,addr_line2) VALUES ('${customerId}','${address.address_id}','${address.addr_line1}','${address.addr_line2}')`;
+        console.log(query);
         return query;
     }
 }
