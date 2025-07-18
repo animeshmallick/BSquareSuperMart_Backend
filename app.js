@@ -51,6 +51,7 @@ app.use('/adminLogin', require('./src/routes/adminLogin'));
 app.use('/getAllPurchase', require('./src/routes/getAllPurchase'));
 app.use('/getPurchaseDoc', require('./src/routes/getPurchaseDocument'));
 app.use('/addAddress', require('./src/routes/addAddress'));
+app.use('/changePurchaseStatus', require('./src/routes/changePurchaseStatus'));
 
 // 404 Handler
 app.use((req, res, next) => {

@@ -109,6 +109,16 @@ class Sql {
         console.log(query);
         return query;
     }
+    get_purchase_status(pid){
+        const query = `SELECT status FROM purchase WHERE purchase_id='${pid}';`;
+        console.log(query);
+        return query;
+    }
+    change_purchase_status(pid, status){
+        const query = `UPDATE purchase SET status='${status}' WHERE purchase_id='${pid}';`;
+        console.log(query);
+        return query;
+    }
 }
 
 module.exports = new Sql();
