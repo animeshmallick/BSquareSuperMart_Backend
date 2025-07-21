@@ -31,7 +31,6 @@ app.set('view engine', 'ejs');
 app.use(morgan('combined', { stream: accessLogStream }));
 
 // Routes
-app.use('/', require('./src/routes/ping'));
 app.use('/ping', require('./src/routes/ping'));
 app.use('/categories', require('./src/routes/categories'));
 app.use('/category', require('./src/routes/productsFromCategory'));
@@ -56,7 +55,7 @@ app.use('/getUserPurchases', require('./src/routes/getUserPurchases'));
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
-
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // 404 Handler
