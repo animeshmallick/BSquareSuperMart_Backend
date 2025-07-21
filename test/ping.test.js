@@ -15,7 +15,7 @@ describe('Ping Router', () => {
         expect(res.body).toStrictEqual({"message": "Ping From Backend Server"});
     });
     it('POST / Call to Ping Router with AuthToken', async () => {
-        const authToken = token.getToken("test_user");
+        const authToken = token.getAdminToken("test_user");
         const res = await request(app).post('/').set('x-authorization', `Bearer ${authToken}`);
 
         expect(res.statusCode).toEqual(200);
@@ -26,6 +26,6 @@ describe('Ping Router', () => {
         const res = await request(app).post('/');
 
         expect(res.statusCode).toEqual(403);
-        expect(res.body).toStrictEqual({"message": "Authorization Token Missing"});
+        expect(res.body).toStrictEqual({"message": "Admin Authorization Token Missing"});
     });
 });

@@ -6,6 +6,69 @@ const helper = require('../helpers/changePurchaseStatusHelper.js');
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /changePurchaseStatus/{pid}/{status}:
+ *   post:
+ *     tags:
+ *       - Admin
+ *     summary: Change the status of a purchase
+ *     description: Allows an authenticated admin to update the status of a purchase order if the transition is allowed.
+ *     security:
+ *       - xAuthorization: []
+ *     parameters:
+ *       - in: path
+ *         name: pid
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Unique purchase ID
+ *         example: "PURCH123"
+ *       - in: path
+ *         name: status
+ *         required: true
+ *         schema:
+ *           type: string
+ *           enum: [PLACED, CONFIRMED, PACKAGING, READY_TO_SHIP, OUT_FOR_DELIVERY, DELIVERED_WITH_PAYMENT_SUCCESS, DELIVERED_WITH_PAYMENT_PENDING, CANCELLED]
+ *         description: Update Status of the given PurchaseID
+ *     responses:
+ *       200:
+ *         description: Status change successful
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: string
+ *                   example: "Status Change Success from [PLACED] to [CONFIRMED]"
+ *       400:
+ *         description: Status change not allowed
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Status Change Not Allowed from [PLACED] to [DELIVERED_WITH_PAYMENT_SUCCESS]"
+ *       404:
+ *         description: Invalid Purchase ID
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Invalid Purchase Id"
+ *       401:
+ *         description: Unauthorized (invalid admin token)
+ *       403:
+ *         description: Forbidden (admin token missing)
+ *       500:
+ *         description: Server or database error
+ */
 router.post('/:pid/:status', token.verifyAdminAuthToken, (req, res) => {
     console.log("Change Purchase Status Requested");
     const adminUserId = req.admin_user_id;

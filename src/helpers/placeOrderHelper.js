@@ -50,7 +50,7 @@ class PlaceOrderHelper {
         if(req.body === undefined || !req.body.hasOwnProperty('cart')) {
             throw new InvalidPlaceOrderRequest("Invalid Place Order Request", 400);
         }else {
-            const productMap = cartHelper.getProductMap(JSON.parse(req.body.cart));
+            const productMap = cartHelper.getProductMap(req.body.cart);
             database.query(Sql.get_all_products_from_ids(Object.keys(productMap)))
                 .then(result => {
                     const orders = [];

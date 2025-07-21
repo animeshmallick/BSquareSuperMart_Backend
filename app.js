@@ -54,6 +54,11 @@ app.use('/addAddress', require('./src/routes/addAddress'));
 app.use('/changePurchaseStatus', require('./src/routes/changePurchaseStatus'));
 app.use('/getUserPurchases', require('./src/routes/getUserPurchases'));
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
 // 404 Handler
 app.use((req, res, next) => {
     res.status(404).json({success: false, message: "Endpoint Not Found",});

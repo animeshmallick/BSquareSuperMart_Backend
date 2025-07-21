@@ -7,6 +7,62 @@ const util = require("../utils/utils");
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /getPurchaseDoc/{purchaseID}:
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Get the purchase document for a user
+ *     description: Retrieve a signed purchase document with product, address, and payment info for the authenticated user.
+ *     security:
+ *       - xAuthorization: []
+ *     parameters:
+ *       - in: path
+ *         name: purchaseID
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Unique ID of the purchase
+ *     responses:
+ *       200:
+ *         description: Purchase document with full details
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 signed:
+ *                   type: boolean
+ *                 purchase_id:
+ *                   type: string
+ *                 customer_id:
+ *                   type: string
+ *                 status:
+ *                   type: string
+ *                 address:
+ *                   type: object
+ *                 payment:
+ *                   type: object
+ *                 purchased_at:
+ *                   type: string
+ *                   format: date-time
+ *                 orders:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       quantity:
+ *                         type: integer
+ *                       product:
+ *                         type: object
+ *       401:
+ *         description: Unauthorized access to another user's purchase document
+ *       400:
+ *         description: Invalid purchase ID
+ *       500:
+ *         description: Server error
+ */
 router.get("/:purchaseID", token.verifyAuthToken, (req, res, next) => {
     const customerId = req.customer_id;
     const purchaseID = req.params.purchaseID;
@@ -53,6 +109,61 @@ router.get("/:purchaseID", token.verifyAuthToken, (req, res, next) => {
             res.status(500).json({error: err.message});
         });
 });
+
+/**
+ * @swagger
+ * /getPurchaseDoc/admin/{purchaseID}:
+ *   get:
+ *     tags:
+ *       - Admin
+ *     summary: Get the purchase document details for an authenticatd admin
+ *     description: Retrieve full purchase document details for admin including customer info.
+ *     security:
+ *       - xAuthorization: []
+ *     parameters:
+ *       - in: path
+ *         name: purchaseID
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Unique ID of the purchase
+ *     responses:
+ *       200:
+ *         description: Full purchase document for admin
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 signed:
+ *                   type: boolean
+ *                 purchase_id:
+ *                   type: string
+ *                 customer_id:
+ *                   type: string
+ *                 status:
+ *                   type: string
+ *                 address:
+ *                   type: object
+ *                 payment:
+ *                   type: object
+ *                 purchased_at:
+ *                   type: string
+ *                   format: date-time
+ *                 orders:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       quantity:
+ *                         type: integer
+ *                       product:
+ *                         type: object
+ *       400:
+ *         description: Invalid purchase ID
+ *       500:
+ *         description: Server error
+ */
 router.get("/admin/:purchaseID", token.verifyAdminAuthToken, (req, res, next) => {
     const purchaseID = req.params.purchaseID;
     let purchase_doc = {

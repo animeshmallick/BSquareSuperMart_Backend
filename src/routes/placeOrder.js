@@ -8,6 +8,86 @@ const util = require("../utils/utils.js");
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /placeOrder:
+ *   post:
+ *     tags:
+ *       - User
+ *     summary: Place a new order
+ *     description: Places a new order for the authenticated user. Validates the address, payment method, and product inventory before creating the order.
+ *     security:
+ *       - xAuthorization: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - purchase_id
+ *               - address
+ *               - payment
+ *               - cart
+ *             properties:
+ *               purchase_id:
+ *                 type: string
+ *                 example: PID-123456789-ABCDEF
+ *               address:
+ *                 type: string
+ *                 example: ADDR12345
+ *               payment:
+ *                 type: string
+ *                 example: cod
+ *               cart:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - ProductID
+ *                     - Quantity
+ *                   properties:
+ *                     ProductID:
+ *                       type: string
+ *                       example: 1
+ *                     Quantity:
+ *                       type: integer
+ *                       example: 2
+ *     responses:
+ *       201:
+ *         description: Order placed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 customer_id:
+ *                   type: string
+ *                 purchase_id:
+ *                   type: string
+ *                 placedAt:
+ *                   type: string
+ *                 payment_status:
+ *                   type: string
+ *                 status:
+ *                   type: string
+ *                 signed:
+ *                   type: boolean
+ *                 inventory_reduced:
+ *                   type: boolean
+ *                 orders:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *       206:
+ *         description: Order placed but inventory update failed
+ *       400:
+ *         description: Bad request - missing or invalid input
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
+ *       500:
+ *         description: Internal server error
+ */
 router.post('/', token.verifyAuthToken,
     placeOrderHelper.verifyIsNewPurchase, placeOrderHelper.verifyAddressOwnership,
     placeOrderHelper.createOrders, placeOrderHelper.verifyPaymentMethod,
