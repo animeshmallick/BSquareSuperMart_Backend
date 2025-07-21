@@ -109,6 +109,7 @@ class Sql {
         console.log(query);
         return query;
     }
+<<<<<<< Updated upstream
     get_purchase_status(pid){
         const query = `SELECT status FROM purchase WHERE purchase_id='${pid}';`;
         console.log(query);
@@ -116,6 +117,10 @@ class Sql {
     }
     change_purchase_status(pid, status){
         const query = `UPDATE purchase SET status='${status}' WHERE purchase_id='${pid}';`;
+=======
+    get_user_purchases(customerId){
+        const query = `SELECT p.id, p.customer_id, p.address_id, p.order_id, p.status, p.payment_id, p.placed_on, p.purchase_id,SUM(o.quantity) AS total_quantity FROM purchase as p JOIN orders as o ON p.order_id REGEXP CONCAT('(^|&&)', o.order_id, '($|&&)') WHERE p.customer_id = '${customerId}' GROUP BY p.purchase_id`;
+>>>>>>> Stashed changes
         console.log(query);
         return query;
     }
