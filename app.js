@@ -51,11 +51,8 @@ app.use('/adminLogin', require('./src/routes/adminLogin'));
 app.use('/getAllPurchase', require('./src/routes/getAllPurchase'));
 app.use('/getPurchaseDoc', require('./src/routes/getPurchaseDocument'));
 app.use('/addAddress', require('./src/routes/addAddress'));
-<<<<<<< Updated upstream
 app.use('/changePurchaseStatus', require('./src/routes/changePurchaseStatus'));
-=======
 app.use('/getUserPurchases', require('./src/routes/getUserPurchases'));
->>>>>>> Stashed changes
 
 // 404 Handler
 app.use((req, res, next) => {
