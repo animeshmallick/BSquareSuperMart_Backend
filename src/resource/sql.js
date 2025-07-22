@@ -97,7 +97,9 @@ class Sql {
         return "SELECT phone FROM users WHERE userid = ?"
     }
     get_address(addressId){
-        return `SELECT * FROM addresses WHERE address_id = '${addressId}'`;
+        const query = `SELECT * FROM addresses WHERE address_id ='${addressId}'`;
+        console.log(query);
+        return query;
     }
     get_orders(order_ids) {
         const quoted_ids = order_ids.map(id => `'${id}'`);
