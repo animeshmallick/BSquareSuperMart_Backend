@@ -9,12 +9,6 @@ const options = {
             version: '1.0.0',
             description: 'API Documentation for BSquareSuperMart',
         },
-        servers: [
-            {
-                url: 'http://localhost:7777',
-                description: 'Development server',
-            },
-        ],
         components: {
             securitySchemes: {
                 xAuthorization: {
