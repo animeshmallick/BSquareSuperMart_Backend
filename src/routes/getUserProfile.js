@@ -5,6 +5,35 @@ const token = require("../internal/token");
 
 const router = express.Router();
 
+/**
+ * @swagger
+ * /getUserProfile:
+ *   get:
+ *     tags:
+ *         - User
+ *     summary: Get user profile
+ *     description: Fetches the user's name and phone number using the customer ID from a verified JWT token.
+ *     security:
+ *      - xAuthorization: []
+ *     responses:
+ *       200:
+ *         description: Successfully fetched user profile
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 name:
+ *                   type: string
+ *                   example: Animesh Mallick
+ *                 phone:
+ *                   type: string
+ *                   example: +91 9876543210
+ *       401:
+ *         description: Unauthorized - Invalid or missing token
+ *       500:
+ *         description: Server error
+ */
 router.get('/', token.verifyAuthToken, (req, res) => {
     const customerId = req.customer_id;
     console.log(`Get User Profile for CustomerID : ${customerId}`);
