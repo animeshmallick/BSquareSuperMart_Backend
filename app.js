@@ -52,6 +52,7 @@ app.use('/getPurchaseDoc', require('./src/routes/getPurchaseDocument'));
 app.use('/addAddress', require('./src/routes/addAddress'));
 app.use('/changePurchaseStatus', require('./src/routes/changePurchaseStatus'));
 app.use('/getUserPurchases', require('./src/routes/getUserPurchases'));
+app.use('/getUserProfile', require('./src/routes/getUserProfile'));
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');
