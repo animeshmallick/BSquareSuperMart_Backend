@@ -133,6 +133,16 @@ class Sql {
         console.log(query);
         return query;
     }
+    get_user_password(customer_id) {
+        const query = `SELECT userid , password from users where userid='${customer_id}';`;
+        console.log(query);
+        return query;
+    }
+    update_user_password(customer_id, newPassword) {
+        const query = `UPDATE users SET \`password\`='${newPassword}' WHERE userid='${customer_id}';`;
+        console.log(query);
+        return query;
+    }
 }
 
 module.exports = new Sql();
