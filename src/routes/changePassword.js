@@ -5,6 +5,52 @@ const token = require('../internal/token');
 
 
 const router = express.Router();
+
+/**
+ * @swagger
+ * /changePassword:
+ *   post:
+ *     summary: Update user password
+ *     description: Allows an authenticated user to change their password by providing the old and new password.
+ *     tags:
+ *       - User
+ *     security:
+ *       - xAuthorization: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - oldPassword
+ *               - newPassword
+ *             properties:
+ *               oldPassword:
+ *                 type: string
+ *                 example: admin@1
+ *               newPassword:
+ *                 type: string
+ *                 example: admin@2
+ *     responses:
+ *       200:
+ *         description: Password updated successfully.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Password updated successfully.
+ *       400:
+ *         description: Invalid old password or new password is same as old.
+ *       401:
+ *         description: Unauthorized (invalid or missing token).
+ *       500:
+ *         description: Server error during password update.
+ */
+
 router.post('/', token.verifyAuthToken, (req, res) => {
     const customerId = req.customer_id;
     const oldPassword = req.body.oldPassword;
