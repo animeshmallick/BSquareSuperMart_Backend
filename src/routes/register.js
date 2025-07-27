@@ -7,7 +7,7 @@ const client = twilio(process.env.TWILIO_ACCOUNT_SID, process.env.TWILIO_AUTH_TO
 
 /**
  * @swagger
- * /send-otp:
+ * /register/send-otp:
  *   post:
  *     summary: Send OTP to a phone number
  *     tags:
@@ -63,7 +63,7 @@ router.post('/send-otp', async (req, res) => {
 
 /**
  * @swagger
- * /verify-otp:
+ * /register/verify-otp:
  *   post:
  *     summary: Verify OTP for a phone number
  *     tags:
