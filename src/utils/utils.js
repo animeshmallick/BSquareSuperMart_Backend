@@ -53,5 +53,9 @@ class Utils {
     getRamdomString(length = 8){
         return Math.random().toString(36).substring(2, length + 2).toUpperCase();
     }
+    isValidPhone(phone){
+        const regex = /^\+[1-9]\d{1,14}$/; // E.164 format
+        return regex.test(phone);
+    }
 }
 module.exports = new Utils();
