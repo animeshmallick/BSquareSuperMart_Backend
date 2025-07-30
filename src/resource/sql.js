@@ -143,6 +143,16 @@ class Sql {
         console.log(query);
         return query;
     }
+    get_last_userid() {
+        const query = `SELECT MAX(id) AS max_id from users;`
+        console.log(query);
+        return query;
+    }
+    register_user(userRegistrationDetails, userid){
+        const query = `INSERT INTO users(userid,fname,lname,phone,password,email) VALUES ('${userid}','${userRegistrationDetails.fname}','${userRegistrationDetails.lname}','${userRegistrationDetails.phone}','${userRegistrationDetails.password}','${userRegistrationDetails.email}');`;
+        console.log(query);
+        return query;
+    }
 }
 
 module.exports = new Sql();
