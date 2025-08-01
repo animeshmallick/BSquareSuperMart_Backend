@@ -23,7 +23,7 @@ class Sql {
             }
             return Number(id);
         });
-        const query = `SELECT * FROM products WHERE id IN (${numericIds.join(',')});`;
+        const query = `SELECT * FROM products WHERE id IN (${numericIds.join(',')}) AND stock > 0;`;
         
         return query;
     }
