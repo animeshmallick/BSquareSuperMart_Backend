@@ -9,7 +9,8 @@ class ProductHelper{
             productMrp: product.mrp,
             productImg: product.image_url,
             productSku: product.sku,
-            productTags: product.tags
+            productTags: product.tags,
+            productStock : product.stock
         };
     }
     validateProduct(result){
