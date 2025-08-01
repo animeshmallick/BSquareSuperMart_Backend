@@ -8,7 +8,7 @@ class Sql {
             throw new Error('Invalid category');
         }
         const safeCategory = category.replace(/'/g, "''");
-        const query = `SELECT * FROM products WHERE category='${safeCategory}';`;
+        const query = `SELECT * FROM products WHERE category='${safeCategory}' AND enabled = TRUE;`;
         
         return query;
     }
@@ -35,7 +35,7 @@ class Sql {
     }
 
     get_all_products(){
-        const query = `SELECT * FROM products;`;
+        const query = `SELECT * FROM products WHERE enabled = TRUE;`;
         
         return query;
     }
