@@ -23,9 +23,12 @@ const router = express.Router();
  *             schema:
  *               type: object
  *               properties:
- *                 name:
+ *                 fname:
  *                   type: string
- *                   example: Animesh Mallick
+ *                   example: Animesh
+ *                 lname:
+ *                    type: string
+ *                    example: Mallick
  *                 phone:
  *                   type: string
  *                   example: +91 9876543210
@@ -40,7 +43,7 @@ router.get('/', token.verifyAuthToken, (req, res) => {
     database.query(Sql.get_user_profile(customerId))
         .then(result => {
             console.log(`User profile fetched : ${result}`);
-            res.status(200).json({name: result[0].name, phone: result[0].phone});
+            res.status(200).json({fname: result[0].fname, lname: result[0].lname, phone: result[0].phone});
         })
         .catch(err => {
             return res.status(500).json({error: err.message});

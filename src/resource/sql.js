@@ -129,7 +129,7 @@ class Sql {
         return query;
     }
     get_user_profile(customer_id){
-        const query = `SELECT name, phone from users where userid='${customer_id}';`;
+        const query = `SELECT fname,lname, phone from users where userid='${customer_id}';`;
         console.log(query);
         return query;
     }
