@@ -149,7 +149,7 @@ class Sql {
         return query;
     }
     register_user(userRegistrationDetails, userid){
-        const query = `INSERT INTO users(userid,fname,lname,phone,password,email) VALUES ('${userid}','${userRegistrationDetails.fname}','${userRegistrationDetails.lname}','${userRegistrationDetails.phone}','${userRegistrationDetails.password}','${userRegistrationDetails.email}');`;
+        const query = `INSERT INTO users(userid,fname,lname,phone,password,email,isAdmin) VALUES ('${userid}','${userRegistrationDetails.fname}','${userRegistrationDetails.lname}','${userRegistrationDetails.phone}','${userRegistrationDetails.password}','${userRegistrationDetails.email}','0');`;
         console.log(query);
         return query;
     }
