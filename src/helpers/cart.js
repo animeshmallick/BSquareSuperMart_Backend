@@ -27,31 +27,31 @@ class CartHelper {
         }
         return true;
     }
+    #rounded(num) {
+        return (Math.round(num * 100) / 100);
+    }
     getBill(products){
-        function rounded(num) {
-            return (Math.round(num * 100) / 100);
-        }
         let cart_items_total = 0.00;
         let isCartRestricted = false;
         products.forEach(product => {
-            cart_items_total += rounded(product.selling_price * product.quantity);
+            cart_items_total += this.#rounded(product.selling_price * product.quantity);
             if (product.hasOwnProperty('isRestricted') && product.isRestricted === true)
                 isCartRestricted = true;
         });
         let delivery_fee = cart_items_total < Bill.MIN_AMOUNT_FOR_FREE_DELIVERY ? Bill.DELIVERY_FEE : 0;
         let packaging_fee = cart_items_total < Bill.MIN_AMOUNT_FOR_FREE_PACKAGING ? Bill.PACKAGING_FEE : 0;
         let bill = {
-            cart_items_total: rounded(cart_items_total),
-            delivery_fee: rounded(delivery_fee),
-            packaging_fee: rounded(packaging_fee),
-            platform_fee: rounded(Bill.PLATFORM_FEE),
+            cart_items_total: this.#rounded(cart_items_total),
+            delivery_fee: this.#rounded(delivery_fee),
+            packaging_fee: this.#rounded(packaging_fee),
+            platform_fee: this.#rounded(Bill.PLATFORM_FEE),
         };
         if(cart_items_total < Bill.MIN_AMOUNT_FOR_BIG_CART)
             bill.small_cart_fee = Bill.SMALL_CART_FEE;
         if(isCartRestricted === true)
             bill.restricted_cart_fee = Bill.RESTRICTED_CART_FEE;
 
-        bill.total_bill = rounded(Object.values(bill).reduce((sum, value) => sum + value, 0));
+        bill.total_bill = this.#rounded(Object.values(bill).reduce((sum, value) => sum + value, 0));
         return bill;
     }
     createCartBill(allProducts, product_map){

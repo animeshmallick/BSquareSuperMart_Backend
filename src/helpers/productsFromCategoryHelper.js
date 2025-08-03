@@ -9,7 +9,8 @@ module.exports = function parseProductsPerCategoryResults(result){
             productSize: product.size,
             productPrice: product.selling_price,
             productMrp: product.mrp,
-            productImg: product.image_url
+            productImg: product.image_url,
+            productInventory: product.stock
         };
 
         if(!products[subcategory]){
