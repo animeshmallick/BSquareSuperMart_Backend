@@ -148,6 +148,11 @@ class Sql {
         console.log(query);
         return query;
     }
+    verify_phone_number(phoneNumber){
+        const query = `SELECT userid FROM users where phone='${phoneNumber}'`;
+        console.log(query);
+        return query;
+    }
     register_user(userRegistrationDetails, userid){
         const query = `INSERT INTO users(userid,fname,lname,phone,password,email,isAdmin) VALUES ('${userid}','${userRegistrationDetails.fname}','${userRegistrationDetails.lname}','${userRegistrationDetails.phone}','${userRegistrationDetails.password}','${userRegistrationDetails.email}','0');`;
         console.log(query);

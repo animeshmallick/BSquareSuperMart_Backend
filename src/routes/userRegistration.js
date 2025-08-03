@@ -2,7 +2,7 @@ const database = require('../internal/database.js');
 const Token = require('../internal/token.js');
 const Sql = require('../resource/sql.js');
 const express = require('express');
-const helper = require("../helpers/userRegistrationHelper.js");
+const userRegistrationHelper = require("../helpers/userRegistrationHelper.js");
 
 const router = express.Router();
 
@@ -63,7 +63,7 @@ const router = express.Router();
  *         description: Internal Server Error
  */
 
-router.post('/', async function (req, res, next) {
+router.post('/', userRegistrationHelper.isNewUser,userRegistrationHelper.createUserId,function (req, res, next) {
     const userRegistrationDetails = req.body;
     if (!userRegistrationDetails.hasOwnProperty('fname') || !userRegistrationDetails.hasOwnProperty('lname') ||
         !userRegistrationDetails.hasOwnProperty('phone') || !userRegistrationDetails.hasOwnProperty('password') ||
@@ -71,7 +71,7 @@ router.post('/', async function (req, res, next) {
         return res.status(400).json({error: "Invalid Login Details"});
 
     console.log(`Generating New UserId`);
-    const userid = await helper.generate_userid();
+    const userid = req.userid;
     const authToken = Token.getToken(userid);
     database.query(Sql.register_user(userRegistrationDetails, userid))
         .then(data => {
