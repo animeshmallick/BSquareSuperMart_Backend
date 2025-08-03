@@ -1,6 +1,7 @@
 const database = require("../internal/database");
 const Sql = require("../resource/sql");
 const InvalidPlaceOrderRequest = require("../exception/InvalidPlaceOrderRequest");
+const AddressOwnershipException = require("../exception/AddressOwnershipException");
 const cartHelper = require("./cart");
 const ProductOutOfStockError = require("../exception/ProductOutOfStockError");
 const getPurchaseIdHelper = require("./getPurchaseIdHelper");
@@ -37,7 +38,7 @@ class PlaceOrderHelper {
         try {
             const rows = await database.query(Sql.verify_address_belong_to_user(req.customer_id, req.body.address));
             if (rows.length === 0) {
-                return res.status(400).json({ message: 'Address Ownership failed' });
+                throw new AddressOwnershipException("Address Ownership failed",400);
             }
             req.address = rows[0];
             console.log("Address Ownership Verified");
