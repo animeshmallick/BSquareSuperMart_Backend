@@ -68,7 +68,7 @@ router.post('/', userRegistrationHelper.isNewUser,userRegistrationHelper.createU
     if (!userRegistrationDetails.hasOwnProperty('fname') || !userRegistrationDetails.hasOwnProperty('lname') ||
         !userRegistrationDetails.hasOwnProperty('phone') || !userRegistrationDetails.hasOwnProperty('password') ||
         !userRegistrationDetails.hasOwnProperty('email'))
-        return res.status(400).json({error: "Invalid Login Details"});
+        return res.status(400).json({error: "Invalid/Missing User Registration Details"});
 
     console.log(`Generating New UserId`);
     const userid = req.userid;
