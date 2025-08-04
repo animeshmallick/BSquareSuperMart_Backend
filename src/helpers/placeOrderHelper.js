@@ -2,8 +2,9 @@ const database = require("../internal/database");
 const Sql = require("../resource/sql");
 const InvalidPlaceOrderRequest = require("../exception/InvalidPlaceOrderRequest");
 const AddressOwnershipException = require("../exception/AddressOwnershipException");
-const cartHelper = require("./cart");
+const DuplicatePurchaseIDException = require("../exception/DuplicatePurchaseIDException");
 const ProductOutOfStockError = require("../exception/ProductOutOfStockError");
+const cartHelper = require("./cart");
 const getPurchaseIdHelper = require("./getPurchaseIdHelper");
 
 class PlaceOrderHelper {
@@ -31,7 +32,7 @@ class PlaceOrderHelper {
             req.purchase_id = req.body.purchase_id;
             next();
         }else{
-            throw new InvalidPlaceOrderRequest("Purchase ID Already Exists", 400);
+            throw new DuplicatePurchaseIDException("Purchase ID Already Exists", 400);
         }
     }
     async verifyAddressOwnership(req, res, next) {
@@ -70,7 +71,7 @@ class PlaceOrderHelper {
                     next();
                 })
                 .catch(err => {
-                    return res.status(400).json({ message: 'Cannot create orders for place order request' });
+                    next(err);
                 });
         }
     }
