@@ -4,7 +4,7 @@ jest.mock('../src/internal/database', () => ({
 }));
 
 const express = require("express");
-const address = require("../src/routes/address");
+const address = require("../src/routes/getAddress");
 const database = require("../src/internal/database");
 const request = require("supertest");
 const testHelper = require("../src/helpers/TestHelper");

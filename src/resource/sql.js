@@ -57,7 +57,7 @@ class Sql {
     }
 
     get_user_address(userId){
-        const query = `SELECT addr_line1, addr_line2, address_id FROM addresses WHERE userid ='${userId}'`;
+        const query = `SELECT addr_line1, addr_line2, address_id, city, pincode, state FROM addresses WHERE userid ='${userId}'`;
         
         return query;
     }
@@ -107,7 +107,7 @@ class Sql {
         return query;
     }
     add_new_address(customerId, address){
-        const query = `INSERT INTO addresses(USERID,address_id,addr_line1,addr_line2) VALUES ('${customerId}','${address.address_id}','${address.addr_line1}','${address.addr_line2}')`;
+        const query = `INSERT INTO addresses(userid,address_id,addr_line1,addr_line2,city,pincode,state) VALUES ('${customerId}','${address.address_id}','${address.addr_line1}','${address.addr_line2}','${address.city}','${address.pincode}','${address.state}')`;
         console.log(query);
         return query;
     }

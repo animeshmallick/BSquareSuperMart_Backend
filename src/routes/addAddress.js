@@ -65,10 +65,10 @@ router.post('/', token.verifyAuthToken, (req, res) => {
     const customerId = req.customer_id;
     const address = req.body;
     address.address_id = "ADDR" + util.getRamdomString(6);
-    if(address.hasOwnProperty("addr_line1") && address.hasOwnProperty("addr_line2")){
+    if(address.hasOwnProperty("addr_line1") && address.hasOwnProperty("addr_line2") && address.hasOwnProperty("city") && address.hasOwnProperty("pincode") && address.hasOwnProperty("state")){
         database.query(Sql.add_new_address(customerId,address))
             .then(result => {
-                res.status(200).json({"success" : true});
+                res.status(200).json({"success" : "Address added successfully"});
             })
             .catch(err => {
                 res.status(500).json({"error": "Something went wrong"});

@@ -42,7 +42,7 @@ app.use('/getAuthToken', require('./src/routes/getAuthToken'));
 app.use('/login', require('./src/routes/login'));
 app.use('/isvalidToken', require('./src/routes/isValidToken'));
 app.use('/getAllProducts', require('./src/routes/getAllProducts'));
-app.use('/getUserAddresses', require('./src/routes/address'));
+app.use('/getUserAddresses', require('./src/routes/getAddress'));
 app.use('/getPaymentMethod', require('./src/routes/getPaymentMethod'));
 app.use('/getPurchaseID', require('./src/routes/getPurchaseID'));
 app.use('/placeOrder', require('./src/routes/placeOrder'));

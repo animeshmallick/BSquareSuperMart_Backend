@@ -1,11 +1,11 @@
-// helpers/addressHelper.js
+// helpers/getAddressHelper.js
 
 class AddressHelper {
     defaultAddress = {
         address: "BSquareSupermart, Chinappa Layout, Mahadevapura",
         city: "Bangalore",
         state: "Karnataka",
-        zip: "560048"
+        pincode: "560048"
     };
 
     parseUserAddress(result) {
@@ -18,7 +18,10 @@ class AddressHelper {
             .map(row => ({
                 address_id: row.address_id,
                 addr_line1: row.addr_line1,
-                addr_line2: row.addr_line2
+                addr_line2: row.addr_line2,
+                city: row.city,
+                state: row.state,
+                pincode: row.pincode
             }));
 
         if (filteredAddresses.length === 0) {

@@ -1,9 +1,9 @@
-// routes/address.js
+// routes/getAddress.js
 const express = require('express');
 const database = require('../internal/database.js');
 const Sql = require('../resource/sql.js');
 const token = require('../internal/token');
-const AddressHelper = require('../helpers/addressHelper.js');
+const AddressHelper = require('../helpers/getAddressHelper.js');
 
 const router = express.Router();
 
