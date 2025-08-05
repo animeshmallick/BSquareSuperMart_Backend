@@ -79,7 +79,7 @@ class Sql {
         return query;
     }
     insertIntoPurchaseTable(){
-        const query = "INSERT INTO purchase (purchase_id, customer_id, address_id, order_id, status, payment_id) VALUES ?";
+        const query = "INSERT INTO purchase (purchase_id, customer_id, address_id, order_id, status, payment_id, store_pickup) VALUES ?";
         return query;
     }
     get_purchase_details(pid){

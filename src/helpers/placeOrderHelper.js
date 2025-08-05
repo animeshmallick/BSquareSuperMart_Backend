@@ -36,6 +36,11 @@ class PlaceOrderHelper {
         }
     }
     async verifyAddressOwnership(req, res, next) {
+        if(req.body.address === "pickup_at_store") {
+            req.address = {address_id: req.body.address};
+            next();
+            return;
+        }
         try {
             const rows = await database.query(Sql.verify_address_belong_to_user(req.customer_id, req.body.address));
             if (rows.length === 0) {
@@ -84,8 +89,9 @@ class PlaceOrderHelper {
         }
     }
     getInsertablePurchaseDoc(purchase_doc){
+        purchase_doc.store_pickup = purchase_doc.address.address_id === "pickup_at_store";
         return [purchase_doc.purchase_id, purchase_doc.customer_id, purchase_doc.address.address_id,
-            purchase_doc.orders.map(order => order.orderID).join("&&"), purchase_doc.status, purchase_doc.payment_method]
+            purchase_doc.orders.map(order => order.orderID).join("&&"), purchase_doc.status, purchase_doc.payment_method, purchase_doc.store_pickup]
     }
 }
 module.exports = new PlaceOrderHelper();
