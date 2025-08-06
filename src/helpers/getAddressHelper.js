@@ -2,7 +2,9 @@
 
 class AddressHelper {
     defaultAddress = {
-        address: "BSquareSupermart, Chinappa Layout, Mahadevapura",
+        address_id: "pickup_at_store",
+        addr_line1: "BSquareSupermart, Chinappa Layout",
+        addr_line2:"Near Shilpitha Splendor Annex, Mahadevapura",
         city: "Bangalore",
         state: "Karnataka",
         pincode: "560048"
