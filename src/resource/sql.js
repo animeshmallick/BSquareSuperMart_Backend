@@ -158,6 +158,11 @@ class Sql {
         console.log(query);
         return query;
     }
+    get_store_address() {
+        const query = "SELECT * from store_master_data;";
+        console.log(query);
+        return query;
+    }
 }
 
 module.exports = new Sql();

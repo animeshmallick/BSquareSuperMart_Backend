@@ -1,19 +1,24 @@
 // helpers/getAddressHelper.js
+const database = require('../internal/database.js');
+const Sql = require('../resource/sql.js');
 
 class AddressHelper {
-    defaultAddress = {
-        address_id: "pickup_at_store",
-        addr_line1: "BSquareSupermart, Chinappa Layout",
-        addr_line2:"Near Shilpitha Splendor Annex, Mahadevapura",
-        city: "Bangalore",
-        state: "Karnataka",
-        pincode: "560048"
-    };
-
+    async get_default_address(){
+        let defaultAddress = {};
+        const rows = await database.query(Sql.get_store_address());
+            if(rows.length === 1){
+                defaultAddress = {
+                    address_id: rows[0].address_id,
+                    addr_line1: rows[0].addr_line1,
+                    addr_line2: rows[0].addr_line2,
+                    city: rows[0].city,
+                    state: rows[0].state,
+                    pincode: rows[0].pincode
+                }
+            }
+        return defaultAddress;
+    }
     parseUserAddress(result) {
-        if (!result || result.length === 0) {
-            return {userAddress: [], storeAddress: this.defaultAddress};
-        }
         // Filter out any rows that have no meaningful address data
         const filteredAddresses = result
             .filter(row => (row.addr_line1?.trim() || row.addr_line2?.trim()))
@@ -25,12 +30,7 @@ class AddressHelper {
                 state: row.state,
                 pincode: row.pincode
             }));
-
-        if (filteredAddresses.length === 0) {
-            return {userAddress: [], storeAddress: this.defaultAddress};
-        }
-        console.log(filteredAddresses);
-        return {userAddress: filteredAddresses, storeAddress: this.defaultAddress};
+        return filteredAddresses;
     }
 }
 

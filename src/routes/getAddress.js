@@ -79,8 +79,16 @@ const router = express.Router();
 router.get('/', token.verifyAuthToken, (req, res) => {
     const customerId = req.customer_id;
     database.query(Sql.get_user_address(customerId))
-        .then(result => {
-            res.status(200).json(AddressHelper.parseUserAddress(result));
+        .then(async result => {
+            const defaultAddress = await AddressHelper.get_default_address();
+            if(!result || result.length === 0) {
+                res.status(200).json({userAddress: [], storeAddress: defaultAddress});
+            }else {
+                res.status(200).json({
+                    userAddress: AddressHelper.parseUserAddress(result),
+                    storeAddress: defaultAddress
+                });
+            }
         })
         .catch(err => {
             return res.status(500).json({error: err.message});
