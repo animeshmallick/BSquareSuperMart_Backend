@@ -8,6 +8,7 @@ class AddressHelper {
         const rows = await database.query(Sql.get_store_address());
             if(rows.length === 1){
                 defaultAddress = {
+                    store_name: rows[0].store_name,
                     address_id: rows[0].address_id,
                     addr_line1: rows[0].addr_line1,
                     addr_line2: rows[0].addr_line2,
