@@ -37,9 +37,12 @@ router.get('/',(req,res)=> {
             if (result.length === 1 && result[0].opening_time && result[0].closing_time){
                 const openTimeMinutes = StoreOpen.toMinutes(result[0].opening_time);
                 const closeTimeMinutes = StoreOpen.toMinutes(result[0].closing_time);
-
-                const isOpen = currentTimeMinutes >= openTimeMinutes && currentTimeMinutes <= closeTimeMinutes;
-
+                let isOpen = false;
+                if (openTimeMinutes <= closeTimeMinutes) {// Same day
+                    isOpen = currentTimeMinutes >= openTimeMinutes && currentTimeMinutes <= closeTimeMinutes;
+                } else {// Crosses midnight
+                    isOpen = currentTimeMinutes >= openTimeMinutes || currentTimeMinutes <= closeTimeMinutes;
+                }
                 res.status(200).json({isOpen: isOpen});
             }
         })
