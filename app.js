@@ -56,6 +56,7 @@ app.use('/getUserProfile', require('./src/routes/getUserProfile'));
 app.use('/register', require('./src/routes/register'));
 app.use('/changePassword', require('./src/routes/changePassword'));
 app.use('/userRegistration', require('./src/routes/userRegistration'));
+app.use('/isStoreOpen', require('./src/routes/isStoreOpen'));
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');

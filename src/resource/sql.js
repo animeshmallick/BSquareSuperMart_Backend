@@ -163,6 +163,11 @@ class Sql {
         console.log(query);
         return query;
     }
+    get_store_timings(){
+        const query = `SELECT opening_time, closing_time FROM store_master_data;`;
+        console.log(query);
+        return query;
+    }
 }
 
 module.exports = new Sql();
