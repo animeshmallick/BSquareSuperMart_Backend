@@ -12,7 +12,7 @@ const router = express.Router();
  *     summary: Check if the store is currently open
  *     description: Returns `true` if the current server time is between store opening and closing times, otherwise `false`.
  *     tags:
- *       - Store
+ *       - User
  *     responses:
  *       200:
  *         description: Store open status
@@ -30,19 +30,13 @@ const router = express.Router();
  */
 
 router.get('/',(req,res)=> {
-    const time = new Date();
-    const currentTimeMinutes = time.getHours()*60 + time.getMinutes() + time.getSeconds()/60;
     database.query(Sql.get_store_timings())
         .then(result => {
             if (result.length === 1 && result[0].opening_time && result[0].closing_time){
-                const openTimeMinutes = StoreOpen.toMinutes(result[0].opening_time);
-                const closeTimeMinutes = StoreOpen.toMinutes(result[0].closing_time);
-                let isOpen = false;
-                if (openTimeMinutes <= closeTimeMinutes) {// Same day
-                    isOpen = currentTimeMinutes >= openTimeMinutes && currentTimeMinutes <= closeTimeMinutes;
-                } else {// Crosses midnight
-                    isOpen = currentTimeMinutes >= openTimeMinutes || currentTimeMinutes <= closeTimeMinutes;
-                }
+                const open_time = result[0].opening_time;
+                const close_time = result[0].closing_time;
+                const isOpen = StoreOpen.isOpen(open_time, close_time);
+
                 res.status(200).json({isOpen: isOpen});
             }
         })

@@ -1,7 +1,14 @@
 class StoreOpenHelper{
-    toMinutes(time){
-        const [hours, minutes, seconds] = time.split(':').map(Number);
-        return (hours*60 + minutes + seconds/60);
+    isOpen(open_time, close_time){
+        const time = new Date();
+        const current_time = time.toTimeString().split(' ')[0];
+        let isOpen = false;
+        if (open_time <= close_time) {// Same day
+            isOpen = current_time >= open_time && current_time <= close_time;
+        } else {// Crosses midnight
+            isOpen = current_time >= open_time || current_time <= close_time;
+        }
+        return isOpen;
     }
 }
 module.exports = new StoreOpenHelper();
