@@ -168,6 +168,11 @@ class Sql {
         console.log(query);
         return query;
     }
+    change_store_timings(open_time, close_time){
+        const query = `UPDATE store_master_data SET opening_time = '${open_time}', closing_time = '${close_time}' WHERE store_id = 'STR001';`;
+        console.log(query);
+        return query;
+    }
 }
 
 module.exports = new Sql();

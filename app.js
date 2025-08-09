@@ -57,6 +57,7 @@ app.use('/register', require('./src/routes/register'));
 app.use('/changePassword', require('./src/routes/changePassword'));
 app.use('/userRegistration', require('./src/routes/userRegistration'));
 app.use('/isStoreOpen', require('./src/routes/isStoreOpen'));
+app.use('/changeStoreTiming', require('./src//routes/changeStoreTiming'));
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');

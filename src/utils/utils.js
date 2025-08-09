@@ -57,5 +57,10 @@ class Utils {
         const regex = /^\+[1-9]\d{1,14}$/; // E.164 format
         return regex.test(phone);
     }
+    isValidTime(time) {
+        // Matches 00:00:00 to 23:59:59
+        const regex = /^([01]\d|2[0-3]):[0-5]\d:[0-5]\d$/;
+        return regex.test(time);
+    }
 }
 module.exports = new Utils();
