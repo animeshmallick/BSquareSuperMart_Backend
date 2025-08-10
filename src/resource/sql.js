@@ -57,7 +57,7 @@ class Sql {
     }
 
     get_user_address(userId){
-        const query = `SELECT addr_line1, addr_line2, address_id, city, pincode, state FROM addresses WHERE userid ='${userId}'`;
+        const query = `SELECT address_label, addr_line1, addr_line2, address_id, city, pincode, state, isDefault FROM addresses WHERE userid ='${userId}'`;
         
         return query;
     }
@@ -170,6 +170,11 @@ class Sql {
     }
     change_store_timings(open_time, close_time){
         const query = `UPDATE store_master_data SET opening_time = '${open_time}', closing_time = '${close_time}' WHERE store_id = 'STR001';`;
+        console.log(query);
+        return query;
+    }
+    get_last_purchases(customer_id){
+        const query = `SELECT customer_id, purchase_id, order_id, placed_on FROM purchase WHERE customer_id = '${customer_id}' ORDER BY placed_on DESC LIMIT 10;`;
         console.log(query);
         return query;
     }

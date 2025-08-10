@@ -24,12 +24,14 @@ class AddressHelper {
         const filteredAddresses = result
             .filter(row => (row.addr_line1?.trim() || row.addr_line2?.trim()))
             .map(row => ({
+                address_label: row.address_label,
                 address_id: row.address_id,
                 addr_line1: row.addr_line1,
                 addr_line2: row.addr_line2,
                 city: row.city,
                 state: row.state,
-                pincode: row.pincode
+                pincode: row.pincode,
+                isDefault: row.isDefault
             }));
         return filteredAddresses;
     }
