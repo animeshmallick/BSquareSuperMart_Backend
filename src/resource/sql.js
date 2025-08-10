@@ -178,6 +178,11 @@ class Sql {
         console.log(query);
         return query;
     }
+    set_default_address(customer_id, address_id){
+      const query = `UPDATE addresses SET isDefault = CASE WHEN address_id = '${address_id}' THEN 1 ELSE 0 END WHERE userid = '${customer_id}';`;
+      console.log(query);
+      return query;
+    }
 }
 
 module.exports = new Sql();
