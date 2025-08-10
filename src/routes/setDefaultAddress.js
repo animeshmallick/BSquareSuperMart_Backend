@@ -1,6 +1,7 @@
 const database = require('../internal/database.js');
 const token = require('../internal/token.js');
 const Sql = require('../resource/Sql.js');
+const helper = require('../helpers/setDefaultAddressHelper.js');
 const express = require('express');
 
 const router = express.Router();
@@ -47,18 +48,14 @@ const router = express.Router();
  *         description: Server error while updating the default address
  */
 
-router.post('/',token.verifyAuthToken,(req,res,next) => {
+router.post('/',token.verifyAuthToken, helper.verifyAddressOwnership,(req,res,next) => {
     const customer_id = req.customer_id;
-    if(req.body.hasOwnProperty('address_id')) {
         database.query(Sql.set_default_address(customer_id,req.body.address_id))
         .then(result => {
                 res.status(200).json({success: true, message: "Default address changed successfully"});
         })
             .catch(err => {
-                res.status(500).json({success: false, error: "Invalid parameters"});
+                res.status(400).json({success: false, error: "Invalid parameters"});
             });
-    } else {
-        res.status(400).json({success: false, error: "Invalid parameters"});
-    }
 });
 module.exports = router;
