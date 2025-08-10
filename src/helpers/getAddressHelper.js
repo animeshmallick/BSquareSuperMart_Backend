@@ -31,7 +31,7 @@ class AddressHelper {
                 city: row.city,
                 state: row.state,
                 pincode: row.pincode,
-                isDefault: row.isDefault
+                isDefault: row.isDefault === 1
             }));
         return filteredAddresses;
     }
