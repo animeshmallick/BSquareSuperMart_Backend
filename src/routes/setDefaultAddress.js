@@ -1,6 +1,6 @@
 const database = require('../internal/database.js');
 const token = require('../internal/token.js');
-const Sql = require('../resource/Sql.js');
+const Sql = require('../resource/sql.js');
 const helper = require('../helpers/setDefaultAddressHelper.js');
 const express = require('express');
 
