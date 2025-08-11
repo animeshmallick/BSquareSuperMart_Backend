@@ -178,6 +178,12 @@ class Sql {
         console.log(query);
         return query;
     }
+    get_order_count_from_customer_id(customer_id){
+        const query = `SELECT COUNT(*) AS total FROM purchase WHERE customer_id = '${customer_id}' AND DATE(placed_on) = CURDATE();`
+        console.log(query);
+        return query;
+    }
+
     set_default_address(customer_id, address_id){
       const query = `UPDATE addresses SET isDefault = CASE WHEN address_id = '${address_id}' THEN 1 ELSE 0 END WHERE userid = '${customer_id}';`;
       console.log(query);
