@@ -51,4 +51,22 @@ describe('Add Address Route', () => {
         expect(response.statusCode).toBe(200);
         expect(response.body).toStrictEqual({"success": "Address added successfully"});
     });
+    it('POST / should return error for wrong address details sent', async() => {
+        const mock_data = testHelper.get_sql_mock_data(testHelper.mock_data_key.WRONG_ADDRESS_DETAILS.name);
+        database.query.mockImplementation(() => Promise.resolve(mock_data));
+
+        const authToken = token.getToken("USR001");
+        const response = await request(app).post('/')
+        .set('x-authorization', `Bearer ${authToken}`)
+        .set('Content-Type', 'application/json')
+        .send({
+            "address_label": "Friends&Family",
+            "addr_line2": "Apt 4B",
+            "city": "Mumbai",
+            "state": "Maharashtra",
+            "pincode": "400001"
+        });
+        expect(response.statusCode).toBe(400);
+        expect(response.body).toStrictEqual({"error": "Something went wrong"});
+    });
 });
