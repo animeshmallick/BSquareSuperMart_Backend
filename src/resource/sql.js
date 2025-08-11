@@ -107,7 +107,7 @@ class Sql {
         return query;
     }
     add_new_address(customerId, address){
-        const query = `INSERT INTO addresses(userid,address_id,addr_line1,addr_line2,city,pincode,state) VALUES ('${customerId}','${address.address_id}','${address.addr_line1}','${address.addr_line2}','${address.city}','${address.pincode}','${address.state}')`;
+        const query = `INSERT INTO addresses(userid,address_id,address_label,addr_line1,addr_line2,city,pincode,state,isDefault) VALUES ('${customerId}','${address.address_id}','${address.address_label}','${address.addr_line1}','${address.addr_line2}','${address.city}','${address.pincode}','${address.state}',false)`;
         console.log(query);
         return query;
     }

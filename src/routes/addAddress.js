@@ -25,6 +25,9 @@ const router = express.Router();
  *               - addr_line1
  *               - addr_line2
  *             properties:
+ *               address_label:
+ *                 type: string
+ *                 example: "Friends&Family"
  *               addr_line1:
  *                 type: string
  *                 example: "123 Main Street"
@@ -65,7 +68,9 @@ router.post('/', token.verifyAuthToken, (req, res) => {
     const customerId = req.customer_id;
     const address = req.body;
     address.address_id = "ADDR" + util.getRamdomString(6);
-    if(address.hasOwnProperty("addr_line1") && address.hasOwnProperty("addr_line2") && address.hasOwnProperty("city") && address.hasOwnProperty("pincode") && address.hasOwnProperty("state")){
+    if(address.hasOwnProperty("addr_line1") && address.hasOwnProperty("addr_line2") &&
+        address.hasOwnProperty("city") && address.hasOwnProperty("pincode") &&
+        address.hasOwnProperty("state")){
         database.query(Sql.add_new_address(customerId,address))
             .then(result => {
                 res.status(200).json({"success" : "Address added successfully"});

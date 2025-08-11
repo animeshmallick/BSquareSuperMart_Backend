@@ -16,7 +16,8 @@ class TestHelper {
         NO_USERS_FOUND: {name: 'noUserFound.json'},
         NO_ADDRESS_FOUND: {name: 'noAddressFound.json'},
         ADDRESS_FOUND: {name: 'userAddress.json'},
-        ALL_PRODUCTS: {name: 'all_products.json', sql_query: Sql.get_all_products()}
+        ALL_PRODUCTS: {name: 'all_products.json', sql_query: Sql.get_all_products()},
+        USER_ADDRESS_ADDED_SUCCESSFULLY: {name: 'userAddressAddedSuccessfully.json'},
     });
     get_mock_data(mock_date_file_name){
         return require(util.format(`../mock_data/${mock_date_file_name}`));
