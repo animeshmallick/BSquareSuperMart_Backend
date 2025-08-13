@@ -19,6 +19,10 @@ class TestHelper {
         ALL_PRODUCTS: {name: 'all_products.json', sql_query: Sql.get_all_products()},
         USER_ADDRESS_ADDED_SUCCESSFULLY: {name: 'userAddressAddedSuccessfully.json'},
         WRONG_ADDRESS_DETAILS: {name: 'wrongAddressDetails.json'},
+        USER_REGISTERED_SUCCESSFULLY: {name: 'userRegisteredSuccessfully.json'},
+        INVALID_USER_REGISTRATION_DETAILS: {name: 'invalidUserRegistration.json'},
+        ADMIN_LOGIN_SUCCESSFUL: {name: 'adminLoginSuccessful.json'},
+        INVALID_ADMIN_LOGIN_CREDENTIALS: {name: 'invalidAdminLoginCredentials.json'}
     });
     get_mock_data(mock_date_file_name){
         return require(util.format(`../mock_data/${mock_date_file_name}`));
