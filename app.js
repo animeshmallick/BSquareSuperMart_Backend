@@ -60,6 +60,7 @@ app.use('/isStoreOpen', require('./src/routes/isStoreOpen'));
 app.use('/changeStoreTiming', require('./src//routes/changeStoreTiming'));
 app.use('/verifyCoupon', require('./src/routes/verifyCoupon'));
 app.use('/setDefaultAddress', require('./src/routes/setDefaultAddress'));
+app.use('/saveFeedback', require('./src/routes/saveFeedback'));
 
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./swagger');

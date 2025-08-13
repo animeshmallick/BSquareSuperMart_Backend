@@ -189,6 +189,12 @@ class Sql {
       console.log(query);
       return query;
     }
+
+    update_feedback_rating(productId, new_rating){
+        const query = `UPDATE products SET rating = ((rating*rating_count) + '${new_rating}')/(rating_count+1), rating_count=rating_count+1 WHERE id = '${productId}';`
+        console.log(query);
+        return query;
+    }
 }
 
 module.exports = new Sql();
