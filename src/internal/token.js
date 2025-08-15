@@ -4,7 +4,7 @@ const ADMIN_SECRET = process.env.JWT_SECRET_KEY ?? 'admin_default_secret_key';
 
 class Token {
     getToken(customer_id) {
-        return jwt.sign({ customer_id: customer_id }, SECRET, { expiresIn: '1h' });
+        return jwt.sign({ customer_id: customer_id }, SECRET, { expiresIn: '12h' });
     }
     getAdminToken(user_id) {
         return jwt.sign({ admin_user_id: user_id }, ADMIN_SECRET, { expiresIn: '1h' });
