@@ -23,7 +23,7 @@ const express = require('express');
 const testHelper = require("../src/helpers/TestHelper.js");
 const database = require('../src/internal/database');
 const userRegistration = require("../src/routes/userRegistration");
-const UserRegistrationHelper = require("../src/helpers/UserRegistrationHelper");
+const UserRegistrationHelper = require("../src/helpers/userRegistrationHelper");
 const token = require("../src/internal/token");
 
 const app = express();
