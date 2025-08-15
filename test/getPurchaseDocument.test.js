@@ -21,6 +21,7 @@ const database = require('../src/internal/database');
 const token = require('../src/internal/token');
 const getPurchaseDocHelper = require('../src/helpers/getPurchaseDocumentHelper');
 const getPurchaseDocRouter = require('../src/routes/getPurchaseDocument');
+const testHelper = require("../src/helpers/TestHelper");
 
 const app = express();
 app.use(express.json());
@@ -70,65 +71,18 @@ describe('GET /getPurchaseDoc/:purchaseID (User)', () => {
             req.customer_id = 'USER001';
             next();
         });
-
+        const mockPurchaseDetails = testHelper.get_sql_mock_data(testHelper.mock_data_key.PURCHASE_DETAILS.name);
+        const mockProduct = testHelper.get_sql_mock_data(testHelper.mock_data_key.PRODUCT.name);
         // First DB call: get_purchase_details
         database.query
-            .mockResolvedValueOnce([{
-                customer_id: 'USER001',
-                status: 'PLACED',
-                address_id: 'ADDR001',
-                order_id: 'OID-050825222945-ABCDEF-G8JUB9GQ',
-                payment_id: 'cod',
-                placed_on: '2025-08-05T11:29:45.000Z'
-            }])
+            .mockResolvedValueOnce(mockPurchaseDetails)
             // Second DB call - get_all_products_from_ids
-            .mockResolvedValueOnce([{
-                id: 1,
-                name: 'Whole Wheat Bread',
-                category_header: 'Dairy/Bakery',
-                category: 'Bakery & Biscuits',
-                subcategory: 'Bread',
-                brand: 'Healthy Bites',
-                tags: '',
-                sku: 'WB-1001',
-                barcode: '1234567890123',
-                mrp: 2.99,
-                selling_price: 2.49,
-                stock: 29,
-                size: '500g',
-                description: 'Soft and fresh whole wheat bread, perfect for sandwiches.',
-                image_url: 'https://example.com/images/whole_wheat_bread_1.jpg',
-                expiration_date: '2025-04-15',
-                added_on: '2025-05-28 12:54:16',
-                enabled: 1,
-                rating: 9,
-                rating_count: 15
-            }]);
+            .mockResolvedValueOnce(mockProduct);
 
         getPurchaseDocHelper.getAddress.mockResolvedValue({ address_id: 'ADDR001', addr_line1: 'Street 1', addr_line2: 'Apt 5' });
         getPurchaseDocHelper.getPayment.mockResolvedValue({payment: "Cash on Delivery", payment_id: "cod"});
         getPurchaseDocHelper.getOrders.mockResolvedValue([{ order_id: 'OID-050825222945-ABCDEF-G8JUB9GQ', product_id: 1, quantity: 2 }]);
-        getPurchaseDocHelper.findProduct.mockReturnValue({id: 1,
-            name: 'Whole Wheat Bread',
-            category_header: 'Dairy/Bakery',
-            category: 'Bakery & Biscuits',
-            subcategory: 'Bread',
-            brand: 'Healthy Bites',
-            tags: '',
-            sku: 'WB-1001',
-            barcode: '1234567890123',
-            mrp: 2.99,
-            selling_price: 2.49,
-            stock: 29,
-            size: '500g',
-            description: 'Soft and fresh whole wheat bread, perfect for sandwiches.',
-            image_url: 'https://example.com/images/whole_wheat_bread_1.jpg',
-            expiration_date: '2025-04-15',
-            added_on: '2025-05-28 12:54:16',
-            enabled: 1,
-            rating: 9,
-            rating_count: 15
-    });
+        getPurchaseDocHelper.findProduct.mockReturnValue(mockProduct);
 
         const res = await request(app).get('/PURCHASE123');
         expect(res.statusCode).toBe(200);

@@ -41,7 +41,7 @@ const app = express();
 app.use(express.json());
 app.use('/', placeOrderRouter);
 
-describe('/placeOrder POST', () => {
+describe('Place Order Route', () => {
     const samplePurchaseDoc = {
         purchase_id: 'PURCHASE123',
         address: 'ADDR1',

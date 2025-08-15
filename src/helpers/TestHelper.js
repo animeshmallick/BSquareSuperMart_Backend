@@ -22,7 +22,8 @@ class TestHelper {
         USER_REGISTERED_SUCCESSFULLY: {name: 'userRegisteredSuccessfully.json'},
         INVALID_USER_REGISTRATION_DETAILS: {name: 'invalidUserRegistration.json'},
         ADMIN_LOGIN_SUCCESSFUL: {name: 'adminLoginSuccessful.json'},
-        INVALID_ADMIN_LOGIN_CREDENTIALS: {name: 'invalidAdminLoginCredentials.json'}
+        INVALID_ADMIN_LOGIN_CREDENTIALS: {name: 'invalidAdminLoginCredentials.json'},
+        PURCHASE_DETAILS: {name: 'purchaseDetails.json'}
     });
     get_mock_data(mock_date_file_name){
         return require(util.format(`../mock_data/${mock_date_file_name}`));
