@@ -12,8 +12,22 @@ class Sql {
         
         return query;
     }
+    get_all_products_from_ids(ids){
+        if (!Array.isArray(ids) || ids.length === 0) {
+            throw new Error('Invalid ids');
+        }
+        const numericIds = ids.map(id => {
+            if (typeof id !== 'number' && isNaN(Number(id))) {
+                throw new Error('Invalid id in list');
+            }
+            return Number(id);
+        });
+        const query = `SELECT * FROM products WHERE id IN (${numericIds.join(',')});`;
 
-    get_all_products_from_ids(ids) {
+        return query;
+    }
+
+    get_all_products_in_stock_from_ids(ids) {
         if (!Array.isArray(ids) || ids.length === 0) {
             throw new Error('Invalid ids');
         }

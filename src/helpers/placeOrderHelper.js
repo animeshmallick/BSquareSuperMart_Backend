@@ -58,7 +58,7 @@ class PlaceOrderHelper {
             throw new InvalidPlaceOrderRequest("Invalid Place Order Request", 400);
         }else {
             const productMap = cartHelper.getProductMap(req.body.cart);
-            database.query(Sql.get_all_products_from_ids(Object.keys(productMap)))
+            database.query(Sql.get_all_products_in_stock_from_ids(Object.keys(productMap)))
                 .then(result => {
                     const orders = [];
                     result.forEach(product => {
