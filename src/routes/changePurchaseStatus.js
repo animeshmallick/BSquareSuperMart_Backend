@@ -90,7 +90,7 @@ router.post('/:pid/:status', token.verifyAdminAuthToken, (req, res) => {
                     res.status(400).json({error: `Status Change Not Allowed from [${oldStatus}] to [${status}]`});
                 }
             }else{
-                res.status(404).body({error: "Invalid Purchase Id"});
+                res.status(404).json({error: "Invalid Purchase Id"});
             }
         })
 });
