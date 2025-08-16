@@ -209,6 +209,13 @@ class Sql {
         console.log(query);
         return query;
     }
+    update_user_address(customer_id, addressDetails){
+        const query = `UPDATE addresses 
+                              SET addr_line1='${addressDetails.addr_line1}', addr_line2='${addressDetails.addr_line2}', city='${addressDetails.city}', state='${addressDetails.state}', pincode='${addressDetails.pincode}' 
+                              WHERE userid='${customer_id}' AND address_id='${addressDetails.address_id}';`;
+        console.log(query);
+        return query;
+    }
 }
 
 module.exports = new Sql();
