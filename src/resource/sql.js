@@ -216,6 +216,30 @@ class Sql {
         console.log(query);
         return query;
     }
+
+    get_most_ordered_product(customer_id){
+        const query = `SELECT order_id FROM purchase WHERE customer_id='${customer_id}' AND placed_on >= CURDATE() - INTERVAL  15 DAY ORDER BY placed_on DESC LIMIT 15;`
+        console.log(query);
+        return query;
+    }
+
+    get_productId_by_count_from_orderId(placeholders){
+        const query = `SELECT product_id FROM orders WHERE order_id IN (${placeholders}) GROUP BY product_id ORDER BY COUNT(order_id) DESC;`
+        console.log(query);
+        return query;
+    }
+
+    check_if_address_belongs_to_customer(address, customerId){
+        const query = `SELECT 1 FROM addresses WHERE userid = '${customerId}' AND address_id = '${address}';`
+        console.log(query);
+        return query;
+    }
+
+    delete_address_for_customer(address, customerId) {
+        const query = `DELETE FROM addresses WHERE userid = '${customerId}' AND address_id = '${address}';`
+        console.log(query);
+        return query;
+    }
 }
 
 module.exports = new Sql();
